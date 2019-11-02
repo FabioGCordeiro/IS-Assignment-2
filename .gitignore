@@ -2,4 +2,8 @@
 *-project
 *.DS_Store
 
-**/.settings
+/projeto2-parent/.settings
+/projeto2-parent/projeto2-business/.settings
+/projeto2-parent/projeto2-data/.settings
+/projeto2-parent/projeto2-ear/.settings
+/projeto2-parent/projeto2-web/.settings
