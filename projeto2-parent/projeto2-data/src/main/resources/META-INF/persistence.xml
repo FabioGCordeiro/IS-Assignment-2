@@ -6,8 +6,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>
 		<properties>
-			<property name="javax.persistence.jdbc.user" value="fabiogc" />
-            <property name="javax.persistence.jdbc.password" value="m3m3s4r3lif3" />
+			<property name="javax.persistence.jdbc.user" value="teuUsername" />
+            <property name="javax.persistence.jdbc.password" value="tuaPassword" />
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://127.0.0.1:3306/mydb" />
             <property name="javax.persistence.jdbc.driver" value="mysql" />
