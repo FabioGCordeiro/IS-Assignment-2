@@ -13,6 +13,8 @@ exit
 
 ---------PERSISTENCE.XML----------
 
+java:jboss/datasources/MySqlDS --> MySqlDS = Nome da DataSource
+
 user = user do mysql (com as permisses referidas em cima) e igual no standalone
 password = password do mysql e igual no standalone
 
