@@ -1,5 +1,5 @@
 *.classpath
-*-project
+*.project
 *.DS_Store
 
 /projeto2-parent/.settings
