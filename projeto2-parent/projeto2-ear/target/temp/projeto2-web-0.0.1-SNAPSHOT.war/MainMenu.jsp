@@ -1,8 +1,8 @@
 <html>
     <head>
-        <title>MyBay - Login</title>
+        <title>MyBay - Main Menu</title>
     </head>
     <body>
-        <h3>OOOOOOF</h3>
+        <h3>kdhvbfsjkzdboj</h3>
     </body>
 </html>

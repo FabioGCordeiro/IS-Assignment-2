@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import ejb.UsersEJBRemote;
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+
+// http://127.0.0.1:8080/project2-web/PlayersTallerThan?fill=1
+// url = http://127.0.0.1:8080/project2-web/PlayersTallerThan?height=1.80
+@WebServlet("/Register")
+public class Register extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  UsersEJBRemote ejbremote;
@@ -20,7 +22,7 @@ public class Login extends HttpServlet {
  /**
   * @see HttpServlet#HttpServlet()
   */
- public Login() {
+ public Register() {
   super();
  }
 
@@ -30,11 +32,13 @@ public class Login extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  String email = request.getParameter("email");
+  String username = request.getParameter("username");
   String password = request.getParameter("password");
+  String email = request.getParameter("email");
+  String country = request.getParameter("country");
 
-  //metodo para checkar se o login foi bem sucedido ou não e se sim
-  response.sendRedirect("MainMenu.jsp");
+  ejbremote.createUser(username, password, email, country);
+  response.sendRedirect("Login.jsp");
 
  }
 
@@ -42,7 +46,7 @@ public class Login extends HttpServlet {
   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
   */
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  response.sendRedirect("Login.jsp");
+  response.sendRedirect("Register.jsp");
   doGet(request, response);
  }
 

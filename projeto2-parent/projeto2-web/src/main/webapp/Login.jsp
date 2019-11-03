@@ -4,12 +4,13 @@
     </head>
     <body>
         <form action="Login">
-            Welcome to MyBay!<br><br>
-            Username:
-            <input type="text" name = "username"><br><br>
+            <h1>Welcome to MyBay!</h1><br><br>
+            Email:
+            <input type="text" name = "email"><br><br>
             Password:
-            <input type="text" name = "password"><br><br>
+            <input type="password" name = "password"><br><br>
             <input type="submit" value="Login">
         </form>
+
     </body>
 </html>
