@@ -17,6 +17,8 @@ public class Item implements Serializable {
  private String category;
  private String countryOrigin;
  //FALTA FOTOGRAFIA
+ @ManyToOne
+ private User user;
  
  public Item() {
   super();
@@ -52,6 +54,25 @@ public class Item implements Serializable {
  public void setCountryOrigin(String countryOrigin) {
      this.countryOrigin = countryOrigin;
  }
+
+
+ public int getId() {
+     return id;
+ }
+
+public void setId(int id) {
+    this.id = id;
+}
+
+ public User getUser() {
+     return user;
+ }
+
+ public void setUser(User user) {
+     this.user = user;
+ }
+
+
 
  @Override
  public String toString() {

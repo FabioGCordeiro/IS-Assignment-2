@@ -4,5 +4,5 @@ import javax.ejb.Remote;
 
 @Remote
 public interface ItemsEJBRemote {
-    public void createItem(String name, String category, String countryOrigin);
+    public boolean createItem(String name, String category, String countryOrigin, String userEmail);
 }

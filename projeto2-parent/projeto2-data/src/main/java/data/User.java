@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,6 +18,8 @@ public class User implements Serializable {
  private String username;
  private String email;
  private String country;
+ @OneToMany(mappedBy="user")
+ private List<Item> items;
  
  public User() {
   super();

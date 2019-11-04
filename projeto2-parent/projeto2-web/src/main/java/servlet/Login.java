@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ejb.UsersEJBRemote;
 
@@ -33,9 +34,15 @@ public class Login extends HttpServlet {
   String email = request.getParameter("email");
   String password = request.getParameter("password");
 
-  //metodo para checkar se o login foi bem sucedido ou não e se sim
-  response.sendRedirect("MainMenu.jsp");
+  HttpSession session=request.getSession();  
+  session.setAttribute("email",email);  
 
+  if(ejbremote.checkUserLogin(email, password)){
+    response.sendRedirect("MainMenu.jsp");
+  }
+  else{
+    response.sendRedirect("Login.jsp");
+  }
  }
 
  /**
