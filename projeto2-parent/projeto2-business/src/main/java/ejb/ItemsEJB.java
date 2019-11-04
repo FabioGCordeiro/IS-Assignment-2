@@ -26,8 +26,22 @@ public class ItemsEJB implements ItemsEJBRemote {
             em.persist(newItem);
             return true; 
         }
-
         return false;
+    }
+
+    public void deleteItem(String itemName, String userEmail){
+        Query q = em.createQuery("from User u where u.email = :e");
+        q.setParameter("e",userEmail);
+        User user = (User) q.getSingleResult();
+
+        // DELETE ITEMS
+        for (Item i : user.getItems()) {
+            if(i.getName().equals(itemName)){
+                q = em.createQuery("delete Item item where item.id = :i");
+                q.setParameter("i",i.getId());
+            }
+        }
+        q.executeUpdate();
     }
     
 }
