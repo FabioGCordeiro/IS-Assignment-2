@@ -1,5 +1,8 @@
 package ejb;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
@@ -7,18 +10,27 @@ import javax.persistence.PersistenceContext;
 
 import data.Item;
 import data.User;
+import data.Hash;
 
 /**
  * Session Bean implementation class PlayersEJB
  */
 @Stateless
 public class UsersEJB implements UsersEJBRemote {
- @PersistenceContext(name="User")
- EntityManager em;
+    @PersistenceContext(name = "User")
+    EntityManager em;
 
-    public boolean createUser(String username, String password, String email, String country){
-        if(!username.equals("") && !password.equals("") && !email.equals("") && !country.equals("")){
-            User newUser = new User(username,password, email, country);
+    public boolean createUser(String username, String password, String email, String country) {
+        if (!username.equals("") && !password.equals("") && !email.equals("") && !country.equals("")) {
+            Hash passwordHash = new Hash();
+            String hashedPassword = "";
+            try {
+                hashedPassword = passwordHash.createHash(password);
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            User newUser = new User(username,hashedPassword, email, country);
             em.persist(newUser);
             return true;
         }
@@ -31,11 +43,13 @@ public class UsersEJB implements UsersEJBRemote {
         User user = (User) q.getSingleResult();
 
         // DELETE USER ITEMS
-        for (Item i : user.getItems()) {
-            q = em.createQuery("delete Item item where item.id = :i");
-            q.setParameter("i",i.getId());
+        if(!(user.getItems().isEmpty())){
+            for (Item i : user.getItems()) {
+                q = em.createQuery("delete Item item where item.id = :i");
+                q.setParameter("i",i.getId()); 
+                q.executeUpdate();
+            }
         }
-        q.executeUpdate();
 
         //DELETE USER
         q = em.createQuery("delete User u where u.email = :e");
@@ -55,8 +69,14 @@ public class UsersEJB implements UsersEJBRemote {
         Query q = em.createQuery("from User u where u.email = :e");
         q.setParameter("e",email);
         User user = (User) q.getSingleResult();
-        if(password.equals(user.getPassword())){
-            return true;
+        Hash passwordHash = new Hash();
+        try {
+            if (passwordHash.validatePassword(password, user.getPassword())) {
+                return true;
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return false;
     }

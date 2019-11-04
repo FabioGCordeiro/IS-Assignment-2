@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1" session="false"%>
+
+<%
+HttpSession session = request.getSession();
+session.setAttribute("email",null);
+%>
+
 <html>
     <head>
         <title>MyBay - Initial Menu</title>

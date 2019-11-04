@@ -16,8 +16,11 @@ public class User implements Serializable {
  int id;
  private String password;
  private String username;
- private String email;
  private String country;
+
+ @Column(unique=true)
+ private String email;
+ 
  @OneToMany(mappedBy="user")
  private List<Item> items;
  
