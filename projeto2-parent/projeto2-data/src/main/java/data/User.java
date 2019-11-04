@@ -64,6 +64,31 @@ public class User implements Serializable {
  public void setCountry(String country) {
      this.country = country;
  }
+ 
+ public int getId() {
+     return id;
+ }
+
+ /**
+  * @param id the id to set
+  */
+ public void setId(int id) {
+     this.id = id;
+ }
+
+ /**
+  * @return the items
+  */
+ public List<Item> getItems() {
+     return items;
+ }
+
+ /**
+  * @param items the items to set
+  */
+ public void setItems(List<Item> items) {
+     this.items = items;
+ }
 
  @Override
  public String toString() {

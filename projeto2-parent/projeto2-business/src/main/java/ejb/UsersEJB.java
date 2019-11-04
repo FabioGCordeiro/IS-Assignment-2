@@ -5,6 +5,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import data.Item;
 import data.User;
 
 /**
@@ -25,7 +26,19 @@ public class UsersEJB implements UsersEJBRemote {
     }
 
     public void deleteUser(String email){
-        Query q = em.createQuery("delete User u where u.email = :e");
+        Query q = em.createQuery("from User u where u.email = :e");
+        q.setParameter("e",email);
+        User user = (User) q.getSingleResult();
+
+        // DELETE USER ITEMS
+        for (Item i : user.getItems()) {
+            q = em.createQuery("delete Item item where item.id = :i");
+            q.setParameter("i",i.getId());
+        }
+        q.executeUpdate();
+
+        //DELETE USER
+        q = em.createQuery("delete User u where u.email = :e");
         q.setParameter("e",email);
         q.executeUpdate();
     }
