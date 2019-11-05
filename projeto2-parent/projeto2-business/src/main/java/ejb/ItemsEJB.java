@@ -1,5 +1,7 @@
 package ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
@@ -42,6 +44,14 @@ public class ItemsEJB implements ItemsEJBRemote {
             }
         }
         q.executeUpdate();
+    }
+
+    public List<Item> getItemsByCategory(String category){
+        Query q = em.createQuery("from Item where category = :c");
+        q.setParameter("c",category);
+        List <Item> items = q.getResultList();
+        
+        return items;
     }
     
 }
