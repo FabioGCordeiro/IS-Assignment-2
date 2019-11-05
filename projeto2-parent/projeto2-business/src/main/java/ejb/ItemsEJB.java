@@ -53,5 +53,13 @@ public class ItemsEJB implements ItemsEJBRemote {
         
         return items;
     }
+
+    public List<Item> getItemsByCountry(String country){
+        Query q = em.createQuery("from Item where countryOrigin = :c");
+        q.setParameter("c",country);
+        List <Item> items = q.getResultList();
+        
+        return items;
+    }
     
 }

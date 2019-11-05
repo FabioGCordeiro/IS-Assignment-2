@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,19 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data.User;
-import ejb.UsersEJBRemote;
+import data.Item;
+import ejb.ItemsEJBRemote;
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/SearchByCountry")
+public class SearchByCountry extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
- UsersEJBRemote ejbremote;
+ ItemsEJBRemote ejbremote;
 
  /**
   * @see HttpServlet#HttpServlet()
   */
- public Login() {
+ public SearchByCountry() {
   super();
  }
 
@@ -30,30 +32,22 @@ public class Login extends HttpServlet {
   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
   */
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    response.setContentType("text/html");
 
-  String email = request.getParameter("email");
-  String password = request.getParameter("password");
+    HttpSession session = request.getSession();
+    String country = session.getAttribute("country").toString();
 
-  User loggedUser = ejbremote.getUser(email);
-
-  HttpSession session=request.getSession();  
-  session.setAttribute("email",email);  
-  session.setAttribute("country", loggedUser.getCountry());
-
-  if(ejbremote.checkUserLogin(email, password)){
-    response.sendRedirect("MainMenu.jsp");
-  }
-  else{
-    response.sendRedirect("Login.jsp");
-  }
+    List<Item> countryItems = ejbremote.getItemsByCountry(country);
+    for (Item item : countryItems) {
+        out.println("<a href=" + "MainMenu.jsp" + ">" + item.getName() + "</a><br/>");
+    }
  }
 
  /**
   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
   */
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  response.sendRedirect("Login.jsp");
   doGet(request, response);
  }
 

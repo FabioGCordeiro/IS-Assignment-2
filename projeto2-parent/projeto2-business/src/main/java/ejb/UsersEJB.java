@@ -81,4 +81,11 @@ public class UsersEJB implements UsersEJBRemote {
         return false;
     }
 
+    public User getUser(String email){
+        Query q = em.createQuery("from User u where u.email = :e");
+        q.setParameter("e",email);
+        User user = (User) q.getSingleResult();
+        return user;
+    }
+
 }
