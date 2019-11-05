@@ -57,12 +57,31 @@ public class UsersEJB implements UsersEJBRemote {
         q.executeUpdate();
     }
 
-    public void updateUser(String username, String password, String email, String country){
-        if(!username.equals("")){
-            Query q = em.createQuery("update User set username=" + username +" where u.email = :e");
-            q.setParameter("e",email);
+    public boolean editUserInfo(String username, String password, String email, String country, String emailS){
+        if(!username.equals("") && !password.equals("") && !email.equals("") && !country.equals("")){
+            Hash passwordHash = new Hash();
+            String hashedPassword = "";
+            try {
+                hashedPassword = passwordHash.createHash(password);
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Query q = em.createQuery("update User set username='" + username + "' where email = '"+ emailS+"'");
             q.executeUpdate();
+            q = em.createQuery("update User set password='" + hashedPassword + "' where email = '"+ emailS+"'");
+            q.executeUpdate();
+            q = em.createQuery("update User set country='" + country + "' where email = '"+ emailS+"'");
+            q.executeUpdate();
+            q = em.createQuery("update User set email='" + email + "' where email = '"+ emailS+"'");
+            q.executeUpdate();
+            return true;
         }
+        else{
+            return false;
+        }
+
+        
     }
 
     public boolean checkUserLogin(String email, String password){
