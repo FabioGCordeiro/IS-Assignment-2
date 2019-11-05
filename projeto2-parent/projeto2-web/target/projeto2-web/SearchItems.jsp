@@ -26,6 +26,6 @@ if(user==null){
             <button type="submit"> Search By Country </button><br><br>
         </form>
 
-        <a href="SearchByPriceRange.jsp"><button> Search By Price Range </button></a>
+        <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a>
     </body>
 </html>

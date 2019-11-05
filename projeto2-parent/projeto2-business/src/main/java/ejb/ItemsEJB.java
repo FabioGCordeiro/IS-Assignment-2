@@ -53,6 +53,15 @@ public class ItemsEJB implements ItemsEJBRemote {
         return items;
     }
 
+    public List<Item> getItemsByPrice(Float lowestPrice, Float HighestPrice){
+        Query q = em.createQuery("from Item where price >= :p1 and price <= :p2");
+        q.setParameter("p1",lowestPrice);
+        q.setParameter("p2", HighestPrice);
+        List <Item> items = q.getResultList();
+
+        return items;
+    }
+
     public List<Item> getItemsByCategory(String category){
         Query q = em.createQuery("from Item where category = :c");
         q.setParameter("c",category);
