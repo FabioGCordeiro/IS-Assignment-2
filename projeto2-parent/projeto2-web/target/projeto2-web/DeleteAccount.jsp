@@ -23,5 +23,9 @@ if(user==null){
             <input type="password" name = "password"><br><br>
             <input type="submit" value="Confirm">
         </form>
+
+        <div style="position:absolute;top:10px;right:10px" >
+            <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
+        </div>
     </body>
 </html>

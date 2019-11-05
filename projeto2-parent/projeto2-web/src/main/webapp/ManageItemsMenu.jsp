@@ -21,4 +21,8 @@ if(user==null){
         <a href="EditItem.jsp"><button> Edit Items </button></a><br><br>
         <a href="DeleteItem.jsp"><button> Delete Item </button></a><br><br>
     </body>
+
+    <div style="position:absolute;top:10px;right:10px" >
+        <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
+    </div>
 </html>
