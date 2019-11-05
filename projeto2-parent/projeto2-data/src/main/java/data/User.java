@@ -21,7 +21,7 @@ public class User implements Serializable {
  @Column(unique=true)
  private String email;
  
- @OneToMany(mappedBy="user")
+ @OneToMany(mappedBy="user",fetch = FetchType.EAGER)
  private List<Item> items;
  
  public User() {

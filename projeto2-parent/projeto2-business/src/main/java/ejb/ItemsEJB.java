@@ -18,9 +18,9 @@ public class ItemsEJB implements ItemsEJBRemote {
  @PersistenceContext(name="Users")
  EntityManager em;
 
-    public boolean createItem(String name, String category, String countryOrigin, String userEmail){
+    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail){
         if(!name.equals("") && !category.equals("") && !countryOrigin.equals("")){
-            Item newItem = new Item(name, category, countryOrigin);
+            Item newItem = new Item(name, category, countryOrigin, price);
             Query q = em.createQuery("from User u where u.email = :e");
             q.setParameter("e",userEmail);
             User user = (User) q.getSingleResult();
@@ -46,6 +46,13 @@ public class ItemsEJB implements ItemsEJBRemote {
         q.executeUpdate();
     }
 
+    public List<Item> getItems(){
+        Query q = em.createQuery("from Item");
+        List <Item> items = q.getResultList();
+        
+        return items;
+    }
+
     public List<Item> getItemsByCategory(String category){
         Query q = em.createQuery("from Item where category = :c");
         q.setParameter("c",category);
@@ -61,5 +68,7 @@ public class ItemsEJB implements ItemsEJBRemote {
         
         return items;
     }
+
+
     
 }

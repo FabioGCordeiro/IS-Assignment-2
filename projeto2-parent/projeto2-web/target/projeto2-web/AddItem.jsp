@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="ISO-8859-1" session="false"%>
 
 <%
@@ -23,6 +23,8 @@ if(user==null){
             <input type="text" name = "category"><br><br>
             Country of Origin:
             <input type="text" name = "country"><br><br>
+            Price(€):
+            <input type="text" name = "price"><br><br>
             <input type="submit" value="Add">
             
             <div style="position:absolute;top:10px;right:10px" >
