@@ -18,6 +18,10 @@ if(user==null){
         <h1>Main Menu</h1>
         <a href="EditAccountInformation.jsp"><button> Edit Account Information </button></a><br><br>
         <a href="DeleteAccount.jsp"><button> Delete Account </button></a><br><br>
-        <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
+
+        <div style="position:absolute;top:10px;right:10px" >
+            <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
+        </div>
     </body>
+
 </html>

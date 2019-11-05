@@ -20,4 +20,8 @@ if(user==null){
         <a href="ManageItemsMenu.jsp"><button> Manage Items </button></a><br><br>
         <a href="SearchItems.jsp"><button> Search Items </button></a>
     </body>
+
+    <div style="position:absolute;top:10px;right:10px" >
+        <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
+    </div>
 </html>
