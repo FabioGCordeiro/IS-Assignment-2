@@ -38,8 +38,9 @@ public class SearchByCategory extends HttpServlet {
 
     List<Item> categoryItems = ejbremote.getItemsByCategory(category);
     for (Item item : categoryItems) {
-        out.println("<a href=" + "MainMenu.jsp" + ">" + item.getName() + "</a><br/>");
+        out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
     }
+    
  }
 
  /**

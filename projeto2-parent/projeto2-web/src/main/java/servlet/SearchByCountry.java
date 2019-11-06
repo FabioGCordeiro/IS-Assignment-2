@@ -40,7 +40,7 @@ public class SearchByCountry extends HttpServlet {
 
     List<Item> countryItems = ejbremote.getItemsByCountry(country);
     for (Item item : countryItems) {
-        out.println("<a href=" + "MainMenu.jsp" + ">" + item.getName() + "</a><br/>");
+        out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
     }
  }
 

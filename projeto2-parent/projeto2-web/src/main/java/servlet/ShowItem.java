@@ -10,20 +10,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import data.Item;
+import data.User;
 import ejb.ItemsEJBRemote;
+import ejb.UsersEJBRemote;
 
-@WebServlet("/SearchByPrice")
-public class SearchByPrice extends HttpServlet {
+@WebServlet("/ShowItem")
+public class ShowItem extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  ItemsEJBRemote ejbremote;
+ @EJB
+ UsersEJBRemote uejbremote;
 
  /**
   * @see HttpServlet#HttpServlet()
   */
- public SearchByPrice() {
+ public ShowItem() {
   super();
  }
 
@@ -34,14 +39,26 @@ public class SearchByPrice extends HttpServlet {
     PrintWriter out = response.getWriter();
     response.setContentType("text/html");
 
-    Float lowestPrice = Float.parseFloat(request.getParameter("lowestPrice"));
-    Float highestPrice = Float.parseFloat(request.getParameter("highestPrice"));
+    HttpSession session = request.getSession();
+    String email = session.getAttribute("email").toString();
 
+    User user = uejbremote.getUser(email);
 
+    List<Item> userItems = user.getItems();
 
-    List<Item> items = ejbremote.getItemsByPrice(lowestPrice, highestPrice);
-    for (Item item : items) {
-        out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
+    int id = Integer.parseInt(request.getParameter("id"));
+
+    Item itemToDetail = ejbremote.getItem(id);
+
+    out.println("Name: " + itemToDetail.getName());
+    out.println("Category: " + itemToDetail.getCategory());
+    out.println("Country: " + itemToDetail.getCountryOrigin());
+    out.println("Price: " + itemToDetail.getPrice());
+
+    for (Item item : userItems){
+        if(item.getId() == id){
+            out.println("<br><a href=" + "EditItem.jsp"+ "><button> Edit Items </button></a><br><br>");
+        }
     }
  }
 

@@ -25,5 +25,11 @@ if(user==null){
             <input type="submit" value="Search">
         </form>
 
+
+        <form action=ShowItem>
+            <input type=hidden name=id value=item.getID()></input>
+            <button type="submit" value=item.getName()></button>
+        </form>
+
     </body>
 </html>

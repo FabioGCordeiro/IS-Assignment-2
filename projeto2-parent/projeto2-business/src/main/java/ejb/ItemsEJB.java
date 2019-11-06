@@ -78,6 +78,13 @@ public class ItemsEJB implements ItemsEJBRemote {
         return items;
     }
 
+    public Item getItem(int id){
+        Query q = em.createQuery("from Item i where i.id = :i");
+        q.setParameter("i",id);
+        Item item = (Item) q.getSingleResult();
+        return item;
+    }
+
 
     
 }

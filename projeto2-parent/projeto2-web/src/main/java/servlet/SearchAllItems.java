@@ -36,7 +36,7 @@ public class SearchAllItems extends HttpServlet {
 
     List<Item> items = ejbremote.getItems();
     for (Item item : items) {
-        out.println("<a href=" + "MainMenu.jsp" + ">" + item.getName() + "</a><br/>");
+        out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
     }
  }
 

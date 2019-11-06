@@ -59,7 +59,7 @@ public class Item implements Serializable {
 
 
  public int getId() {
-     return id;
+     return this.id;
  }
 
 public void setId(int id) {
@@ -67,7 +67,7 @@ public void setId(int id) {
 }
 
  public User getUser() {
-     return user;
+     return this.user;
  }
 
  public void setUser(User user) {
@@ -92,7 +92,7 @@ public void setId(int id) {
 
  @Override
  public String toString() {
-  return " Name: " + this.name +  " Category: " + this.category +  " Country of Origin: " + this.countryOrigin;
+  return "Name: " + this.getName() + "\n" + "Category: " + this.getCategory() +  "\n"+ "Country of Origin: " + this.getCountryOrigin() + "\n"+ "Price: " + this.getPrice();
  }
    
 }
