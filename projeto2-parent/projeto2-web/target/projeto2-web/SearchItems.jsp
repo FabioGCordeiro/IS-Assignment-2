@@ -30,5 +30,10 @@ if(user==null){
 
         <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a><br><br>
         <a href="SearchItemsByDate.jsp"><button> Search Items Posted After Date </button></a>
+
+        <div style=position:absolute;top:10px;right:10px>
+            <a href=InitialMenu.jsp><button> Logout </button></a><br><br>
+        </div>
+
     </body>
 </html>

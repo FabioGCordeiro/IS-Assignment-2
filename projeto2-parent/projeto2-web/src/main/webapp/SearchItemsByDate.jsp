@@ -18,11 +18,15 @@ if(user==null){
     <body>
         <form action="SearchByDate">
             <h1>Please insert a date separated by /</h1><br><br>
-            Category:
+            Date:
             <input type="text" name = "date"><br><br>
             <input type="hidden" name="order" value=0></input>
             <input type="submit" value="Search">
         </form>
+
+        <div style=position:absolute;top:10px;right:10px>
+            <a href=InitialMenu.jsp><button> Logout </button></a><br><br>
+        </div>
 
     </body>
 </html>
