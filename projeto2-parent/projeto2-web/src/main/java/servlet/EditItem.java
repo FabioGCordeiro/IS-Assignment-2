@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import ejb.ItemsEJBRemote;;
 
-@WebServlet("/AddItem")
-public class AddItem extends HttpServlet {
+@WebServlet("/EditItem")
+public class EditItem extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  ItemsEJBRemote ejbremote;
@@ -21,7 +21,7 @@ public class AddItem extends HttpServlet {
  /**
   * @see HttpServlet#HttpServlet()
   */
- public AddItem() {
+ public EditItem() {
   super();
  }
 
@@ -36,22 +36,21 @@ public class AddItem extends HttpServlet {
     String countryOrigin = request.getParameter("country");
     Float price = Float.parseFloat(request.getParameter("price"));
 
-    HttpSession session=request.getSession();
+    int id = Integer.parseInt(request.getParameter("id"));
 
-
-    if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString())){
-      response.sendRedirect("MainMenu.jsp");
+    if(ejbremote.editItem(name, category,countryOrigin, price, id)){
+        response.sendRedirect("MainMenu.jsp");
     }
     else{
-      response.sendRedirect("AddItem.jsp");
+        response.sendRedirect("EditItem.jsp");
     }
-  }
+    }
 
-  /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
     */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
-  }
+    }
 
 }

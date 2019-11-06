@@ -18,12 +18,12 @@ if(user==null){
         <h1>Search Items Menu</h1><br>
         <h3>Choose an option:</h3><br>
         <form action="SearchAllItems">
-            <button type="submit"> Show All Items </button><br><br>
+            <button type="submit"> Show All Items </button>
         </form>
         <a href="SearchByCategory.jsp"><button> Search By Category </button></a><br><br>
 
         <form action="SearchByCountry">
-            <button type="submit"> Search By Country </button><br><br>
+            <button type="submit"> Search By Country </button>
         </form>
 
         <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a>

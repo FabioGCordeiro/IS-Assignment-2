@@ -10,6 +10,7 @@ import data.Item;
 public interface ItemsEJBRemote {
     public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail);
     public void deleteItem(String itemName, String userEmail);
+    public boolean editItem(String name, String category, String countryOrigin, Float price, int id);
     public List<Item> getItems();
     public List<Item> getItemsByPrice(Float lowestPrice, Float HighestPrice);
     public List<Item> getItemsByCategory(String category);

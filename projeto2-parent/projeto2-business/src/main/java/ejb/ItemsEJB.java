@@ -31,6 +31,26 @@ public class ItemsEJB implements ItemsEJBRemote {
         return false;
     }
 
+
+    public boolean editItem(String name, String category, String countryOrigin, Float price, int id){
+        if(!name.equals("") && !category.equals("") && !countryOrigin.equals("") && !price.equals("")){
+            Query q = em.createQuery("update Item set name='" + name + "' where id = '"+ id +"'");
+            q.executeUpdate();
+            q = em.createQuery("update Item set category='" + category + "' where id = '"+ id+"'");
+            q.executeUpdate();
+            q = em.createQuery("update Item set countryOrigin='" + countryOrigin + "' where id = '"+ id+"'");
+            q.executeUpdate();
+            q = em.createQuery("update Item set price=" + price + " where id = '"+ id+"'");
+            q.executeUpdate();
+            return true;
+        }
+        else{
+            return false;
+        }
+
+        
+    }
+
     public void deleteItem(String itemName, String userEmail){
         Query q = em.createQuery("from User u where u.email = :e");
         q.setParameter("e",userEmail);
@@ -63,8 +83,7 @@ public class ItemsEJB implements ItemsEJBRemote {
     }
 
     public List<Item> getItemsByCategory(String category){
-        Query q = em.createQuery("from Item where category = :c");
-        q.setParameter("c",category);
+        Query q = em.createQuery("from Item where category like '%"+ category +"%'");
         List <Item> items = q.getResultList();
         
         return items;
