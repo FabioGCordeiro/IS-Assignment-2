@@ -8,7 +8,7 @@ import data.Item;
 
 @Remote
 public interface ItemsEJBRemote {
-    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail);
+    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail, int insertionDate);
     public void deleteItem(String itemName, String userEmail);
     public boolean editItem(String name, String category, String countryOrigin, Float price, int id);
     public List<Item> getItems();

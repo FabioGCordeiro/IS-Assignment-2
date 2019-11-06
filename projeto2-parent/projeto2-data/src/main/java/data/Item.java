@@ -17,6 +17,7 @@ public class Item implements Serializable {
  private String category;
  private String countryOrigin;
  private Float price;
+ private Integer insertionDate;  
  //FALTA FOTOGRAFIA
  @ManyToOne
  private User user;
@@ -25,12 +26,13 @@ public class Item implements Serializable {
   super();
  }
 
- public Item(String name, String category, String countryOrigin, Float price) {
+ public Item(String name, String category, String countryOrigin, Float price, Integer insertionDate) {
   super();
   this.name = name;
   this.category = category;
   this.countryOrigin = countryOrigin;
   this.price = price;
+  this.insertionDate = insertionDate;
  }
 
  public String getName() {
@@ -78,7 +80,7 @@ public void setId(int id) {
   * @return the price
   */
  public Float getPrice() {
-     return price;
+     return this.price;
  }
 
  /**
@@ -88,11 +90,16 @@ public void setId(int id) {
      this.price = price;
  }
 
+ public Integer getInsertionDate() {
+     return insertionDate;
+ }
+
+ 
 
 
  @Override
  public String toString() {
-  return "Name: " + this.getName() + "\n" + "Category: " + this.getCategory() +  "\n"+ "Country of Origin: " + this.getCountryOrigin() + "\n"+ "Price: " + this.getPrice();
+  return "Name: " + this.getName() + "<br>" + "Category: " + this.getCategory() +  "<br>"+ "Country of Origin: " + this.getCountryOrigin() + "<br>"+ "Price: " + this.getPrice();
  }
    
 }

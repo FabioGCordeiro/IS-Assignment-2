@@ -51,10 +51,7 @@ public class ShowItem extends HttpServlet {
     
     Item itemToDetail = ejbremote.getItem(id);
 
-    out.println("Name: " + itemToDetail.getName());
-    out.println("Category: " + itemToDetail.getCategory());
-    out.println("Country: " + itemToDetail.getCountryOrigin());
-    out.println("Price: " + itemToDetail.getPrice());
+    out.println(itemToDetail.toString());
 
     for (Item item : userItems){
         if(item.getId() == id){

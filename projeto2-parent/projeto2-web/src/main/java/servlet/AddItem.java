@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -36,10 +38,19 @@ public class AddItem extends HttpServlet {
     String countryOrigin = request.getParameter("country");
     Float price = Float.parseFloat(request.getParameter("price"));
 
+    Date d = new Date();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    String date = formatter.format(d);
+   
+    String [] dateSplit = date.split(" ");
+    String[] daySplit = dateSplit[0].split("-");
+    String[] timeSplit = dateSplit[1].split(":");  
+    int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0])) + (Integer.parseInt(timeSplit[0])) + (Integer.parseInt(timeSplit[1]));
+
     HttpSession session=request.getSession();
 
 
-    if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString())){
+    if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate)){
       response.sendRedirect("MainMenu.jsp");
     }
     else{

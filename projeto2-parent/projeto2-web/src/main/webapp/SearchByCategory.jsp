@@ -20,6 +20,7 @@ if(user==null){
             <h1>Please insert a category</h1><br><br>
             Category:
             <input type="text" name = "category"><br><br>
+            <input type="hidden" name="order" value=0></input>
             <input type="submit" value="Search">
         </form>
 
