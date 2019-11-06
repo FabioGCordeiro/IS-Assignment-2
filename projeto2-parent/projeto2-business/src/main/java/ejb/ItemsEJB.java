@@ -33,14 +33,14 @@ public class ItemsEJB implements ItemsEJBRemote {
 
 
     public boolean editItem(String name, String category, String countryOrigin, Float price, int id){
-        if(!name.equals("") && !category.equals("") && !countryOrigin.equals("") && !price.equals("")){
-            Query q = em.createQuery("update Item set name='" + name + "' where id = '"+ id +"'");
+        if(!name.equals("") && !category.equals("") && !countryOrigin.equals("") && price!=null){
+            Query q = em.createQuery("update Item set name='" + name + "' where id = "+ id);
             q.executeUpdate();
-            q = em.createQuery("update Item set category='" + category + "' where id = '"+ id+"'");
+            q = em.createQuery("update Item set category='" + category + "' where id = "+ id);
             q.executeUpdate();
-            q = em.createQuery("update Item set countryOrigin='" + countryOrigin + "' where id = '"+ id+"'");
+            q = em.createQuery("update Item set countryOrigin='" + countryOrigin + "' where id = "+ id);
             q.executeUpdate();
-            q = em.createQuery("update Item set price=" + price + " where id = '"+ id+"'");
+            q = em.createQuery("update Item set price=" + price + " where id = "+ id);
             q.executeUpdate();
             return true;
         }

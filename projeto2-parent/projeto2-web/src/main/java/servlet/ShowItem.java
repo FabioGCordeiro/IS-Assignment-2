@@ -47,7 +47,8 @@ public class ShowItem extends HttpServlet {
     List<Item> userItems = user.getItems();
 
     int id = Integer.parseInt(request.getParameter("id"));
-
+    session.setAttribute("id", id);
+    
     Item itemToDetail = ejbremote.getItem(id);
 
     out.println("Name: " + itemToDetail.getName());
@@ -57,7 +58,7 @@ public class ShowItem extends HttpServlet {
 
     for (Item item : userItems){
         if(item.getId() == id){
-            out.println("<br><a href=" + "EditItem.jsp"+ "><button> Edit Items </button></a><br><br>");
+            out.println("<br><a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
         }
     }
  }

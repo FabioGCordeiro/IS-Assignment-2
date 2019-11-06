@@ -36,9 +36,12 @@ public class EditItem extends HttpServlet {
     String countryOrigin = request.getParameter("country");
     Float price = Float.parseFloat(request.getParameter("price"));
 
-    int id = Integer.parseInt(request.getParameter("id"));
+    HttpSession session = request.getSession();
+    int id = Integer.parseInt(session.getAttribute("id").toString());
+    
 
     if(ejbremote.editItem(name, category,countryOrigin, price, id)){
+        session.setAttribute("id", "");
         response.sendRedirect("MainMenu.jsp");
     }
     else{
