@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Item implements Serializable {
  private static final long serialVersionUID = 1L;
  @Id @GeneratedValue(strategy=GenerationType.AUTO)
- int id;
+ Integer id;
  private String name;
  private String category;
  private String countryOrigin;
@@ -60,7 +60,7 @@ public class Item implements Serializable {
  }
 
 
- public int getId() {
+ public Integer getId() {
      return this.id;
  }
 
@@ -91,7 +91,7 @@ public void setId(int id) {
  }
 
  public Integer getInsertionDate() {
-     return insertionDate;
+     return this.insertionDate;
  }
 
  

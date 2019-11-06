@@ -11,22 +11,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import data.Item;
-import data.User;
-import ejb.UsersEJBRemote;
+import ejb.ItemsEJBRemote;
 
-@WebServlet("/ShowUserItems")
-public class ShowUserItems extends HttpServlet {
+@WebServlet("/SearchByDate")
+public class SearchByDate extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
- UsersEJBRemote ejbremote;
+ ItemsEJBRemote ejbremote;
 
  /**
   * @see HttpServlet#HttpServlet()
   */
- public ShowUserItems() {
+ public SearchByDate() {
   super();
  }
 
@@ -37,29 +35,31 @@ public class ShowUserItems extends HttpServlet {
     PrintWriter out = response.getWriter();
     response.setContentType("text/html");
 
-    HttpSession session = request.getSession();
-    String email = session.getAttribute("email").toString();
-
-
-    User loggedUser = ejbremote.getUser(email);
-    List<Item> userItems = loggedUser.getItems();
+    String date = request.getParameter("date");
+   
+    String [] dateSplit = date.split("/");
+    int dateInserted = (Integer.parseInt(dateSplit[2])*10000) + (Integer.parseInt(dateSplit[1])*100) + (Integer.parseInt(dateSplit[0]));
+    
+    List<Item> items = ejbremote.getItemsByDate(dateInserted);
 
     if((Integer.parseInt(request.getParameter("order")) == 1)){
-      //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId).reversed());
+        //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId).reversed());
     }
     else{
       //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
+      items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
     }
-
-    for (Item item : userItems) {
+      
+    for (Item item : items) {
         out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
     }
 
-    out.println("<form action=ShowUserItems><input type=hidden name=order value=0></input><button type=submit> Older To Recent </button><br><br></form><form action=ShowUserItems><input type=hidden name=order value=1></input><button type=submit> Recent To Older </button><br><br></form>");
-
+    //DATA ORDERING BUTTONS
+    out.println("<form action=SearchByDate><input type=hidden name=order value=0></input><input type=hidden name=date value="+date+"></input><button type=submit> Older To Recent </button><br><br></form><form action=SearchByDate><input type=hidden name=order value=1></input><input type=hidden name=date value="+date+"></input><button type=submit> Recent To Older </button><br><br></form>");
     
+    //LOGOUT BUTTON
+    out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
  }
 
  /**

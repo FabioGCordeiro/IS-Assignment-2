@@ -18,7 +18,7 @@ public class ItemsEJB implements ItemsEJBRemote {
  @PersistenceContext(name="Users")
  EntityManager em;
 
-    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail, int insertionDate){
+    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail, Integer insertionDate){
         if(!name.equals("") && !category.equals("") && !countryOrigin.equals("")){
             Item newItem = new Item(name, category, countryOrigin, price,insertionDate);
             Query q = em.createQuery("from User u where u.email = :e");
@@ -79,6 +79,13 @@ public class ItemsEJB implements ItemsEJBRemote {
         q.setParameter("p2", HighestPrice);
         List <Item> items = q.getResultList();
 
+        return items;
+    }
+
+    public List<Item> getItemsByDate(int date){
+        Query q = em.createQuery("from Item where insertionDate >= :p1");
+        q.setParameter("p1",date);
+        List <Item> items = q.getResultList();
         return items;
     }
 

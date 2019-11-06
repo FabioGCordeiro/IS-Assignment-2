@@ -44,8 +44,8 @@ public class AddItem extends HttpServlet {
    
     String [] dateSplit = date.split(" ");
     String[] daySplit = dateSplit[0].split("-");
-    String[] timeSplit = dateSplit[1].split(":");  
-    int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0])) + (Integer.parseInt(timeSplit[0])) + (Integer.parseInt(timeSplit[1]));
+    
+    int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0]));
 
     HttpSession session=request.getSession();
 
