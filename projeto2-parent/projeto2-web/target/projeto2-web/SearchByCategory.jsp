@@ -13,7 +13,7 @@ if(user==null){
 
 <html>
     <head>
-        <title>MyBay - Seary Category</title>
+        <title>MyBay - Search Category</title>
     </head>
     <body>
         <form action="SearchByCategory">
