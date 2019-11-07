@@ -22,5 +22,10 @@ if(user==null){
         <div style="position:absolute;top:10px;right:10px" >
             <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
         </div>
+
+        <form action="SendEmail">
+                <button type=submit value="Send Email">SEND EMAIL</button>
+        </form>
+
     </body>
 </html>

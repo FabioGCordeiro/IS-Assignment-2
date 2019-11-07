@@ -15,6 +15,7 @@ public interface ItemsEJBRemote {
     public List<Item> getItemsByPrice(Float lowestPrice, Float HighestPrice);
     public List<Item> getItemsByDate(int date);
     public List<Item> getItemsByCategory(String category);
+    public List<Item> getItemsByName(String name);
     public List<Item> getItemsByCountry(String country);
 	public Item getItem(int id);
 }
