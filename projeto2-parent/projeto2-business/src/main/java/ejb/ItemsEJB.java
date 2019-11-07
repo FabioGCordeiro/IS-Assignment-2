@@ -15,7 +15,7 @@ import data.User;
  */
 @Stateless
 public class ItemsEJB implements ItemsEJBRemote {
- @PersistenceContext(name="Users")
+ @PersistenceContext(name="User")
  EntityManager em;
 
     public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail){
