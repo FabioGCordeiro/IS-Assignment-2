@@ -13,13 +13,13 @@ if(user==null){
 
 <html>
     <head>
-        <title>MyBay - Search Category</title>
+        <title>MyBay - Seary By Date</title>
     </head>
     <body>
-        <form action="SearchByCategory">
-            <h1>Please insert a category</h1><br><br>
-            Category:
-            <input type="text" name = "category"><br><br>
+        <form action="SearchByDate">
+            <h1>Please insert a date separated by /</h1><br><br>
+            Date:
+            <input type="text" name = "date"><br><br>
             <input type="hidden" name="order" value=0></input>
             <input type="submit" value="Search">
         </form>

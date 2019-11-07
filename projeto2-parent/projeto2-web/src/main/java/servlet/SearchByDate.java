@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import data.Item;
 import ejb.ItemsEJBRemote;
 
-@WebServlet("/SearchAllItems")
-public class SearchAllItems extends HttpServlet {
+@WebServlet("/SearchByDate")
+public class SearchByDate extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  ItemsEJBRemote ejbremote;
@@ -24,7 +24,7 @@ public class SearchAllItems extends HttpServlet {
  /**
   * @see HttpServlet#HttpServlet()
   */
- public SearchAllItems() {
+ public SearchByDate() {
   super();
  }
 
@@ -35,8 +35,14 @@ public class SearchAllItems extends HttpServlet {
     PrintWriter out = response.getWriter();
     response.setContentType("text/html");
 
-    List<Item> items = ejbremote.getItems();
+    String date = request.getParameter("date");
+   
+    String [] dateSplit = date.split("/");
+    int dateInserted = (Integer.parseInt(dateSplit[2])*10000) + (Integer.parseInt(dateSplit[1])*100) + (Integer.parseInt(dateSplit[0]));
+    
+    List<Item> items = ejbremote.getItemsByDate(dateInserted);
 
+    
     if((Integer.parseInt(request.getParameter("order")) == 0)){
       //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
       items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
@@ -68,24 +74,22 @@ public class SearchAllItems extends HttpServlet {
 
     //DATA ORDERING BUTTONS
     out.println("<div style=position:absolute;top:10px;right:178px>Order By Date:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=0><button type=submit> Older To Recent </button><br></form><form action=SearchAllItems><input type=hidden name=order value=1></input><button type=submit> Recent To Older </button><br><br></form>");
+    out.println("<form action=SearchByDate><input type=hidden name=order value=0></input><input type=hidden name=date value="+date+"></input><button type=submit> Older To Recent </button><br></form><form action=SearchByDate><input type=hidden name=order value=1></input><input type=hidden name=date value="+date+"></input><button type=submit> Recent To Older </button><br><br></form>");
     out.println("</div>");
 
     //PRICE ORDERING BUTTONS
     out.println("<div style=position:absolute;top:100px;right:100px>Order By Price:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=2><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchAllItems><input type=hidden name=order value=3></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
+    out.println("<form action=SearchByDate><input type=hidden name=order value=2></input><input type=hidden name=date value="+date+"></input><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchByDate><input type=hidden name=order value=3></input><input type=hidden name=date value="+date+"></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
     out.println("</div>");
 
     //NAME ORDERING BUTTONS
     out.println("<div style=position:absolute;top:190px;right:188px>Order By Price:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=4></input><button type=submit> A to Z </button><br></form><form action=SearchAllItems><input type=hidden name=order value=5><button type=submit> Z to A  </button><br><br></form>");
+    out.println("<form action=SearchByDate><input type=hidden name=order value=4></input><input type=hidden name=date value="+date+"></input><button type=submit> A to Z </button><br></form><form action=SearchByDate><input type=hidden name=order value=5></input><input type=hidden name=date value="+date+"></input><button type=submit> Z to A  </button><br><br></form>");
     out.println("</div>");
 
     //LOGOUT BUTTON
     out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
-
-
-  }
+ }
 
  /**
   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -18,14 +18,22 @@ if(user==null){
         <h1>Search Items Menu</h1><br>
         <h3>Choose an option:</h3><br>
         <form action="SearchAllItems">
+            <input type=hidden name=order value=0></input>
             <button type="submit"> Show All Items </button>
         </form>
         <a href="SearchByCategory.jsp"><button> Search By Category </button></a><br><br>
 
         <form action="SearchByCountry">
+            <input type=hidden name=order value=0></input>
             <button type="submit"> Search By Country </button>
         </form>
 
-        <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a>
+        <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a><br><br>
+        <a href="SearchItemsByDate.jsp"><button> Search Items Posted After Date </button></a>
+
+        <div style=position:absolute;top:10px;right:10px>
+            <a href=InitialMenu.jsp><button> Logout </button></a><br><br>
+        </div>
+
     </body>
 </html>

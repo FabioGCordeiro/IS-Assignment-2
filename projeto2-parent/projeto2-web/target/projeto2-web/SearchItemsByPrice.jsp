@@ -22,14 +22,12 @@ if(user==null){
             <input type="text" name = "lowestPrice"><br><br>
             Highest price:
             <input type="text" name = "highestPrice"><br><br>
+            <input type="hidden" name="order" value="0">
             <input type="submit" value="Search">
         </form>
 
-
-        <form action=ShowItem>
-            <input type=hidden name=id value=item.getID()></input>
-            <button type="submit" value=item.getName()></button>
-        </form>
-
+        <div style=position:absolute;top:10px;right:10px>
+            <a href=InitialMenu.jsp><button> Logout </button></a><br><br>
+        </div>
     </body>
 </html>

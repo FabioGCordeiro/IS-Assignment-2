@@ -15,7 +15,7 @@ if(user==null){
         <title>MyBay - Add Item</title>
     </head>
     <body>
-        <form action="AddItem">
+        <form method="post" action="AddItem" enctype="multipart/form-data">
             <h1>Add Item</h1><br><br>
             Item name:
             <input type="text" name = "name"><br><br>
@@ -25,6 +25,8 @@ if(user==null){
             <input type="text" name = "country"><br><br>
             Price(€):
             <input type="text" name = "price"><br><br>
+            Photo:
+            <td><input type="file" name = "photo" size="50"></input></td><br><br>
             <input type="submit" value="Add">
             
             <div style="position:absolute;top:10px;right:10px" >

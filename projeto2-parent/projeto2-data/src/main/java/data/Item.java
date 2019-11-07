@@ -12,12 +12,13 @@ import javax.persistence.*;
 public class Item implements Serializable {
  private static final long serialVersionUID = 1L;
  @Id @GeneratedValue(strategy=GenerationType.AUTO)
- int id;
+ Integer id;
  private String name;
  private String category;
  private String countryOrigin;
  private Float price;
- //FALTA FOTOGRAFIA
+ private Integer insertionDate;  
+ byte[] photo;
  @ManyToOne
  private User user;
  
@@ -25,12 +26,13 @@ public class Item implements Serializable {
   super();
  }
 
- public Item(String name, String category, String countryOrigin, Float price) {
+ public Item(String name, String category, String countryOrigin, Float price, Integer insertionDate) {
   super();
   this.name = name;
   this.category = category;
   this.countryOrigin = countryOrigin;
   this.price = price;
+  this.insertionDate = insertionDate;
  }
 
  public String getName() {
@@ -58,7 +60,7 @@ public class Item implements Serializable {
  }
 
 
- public int getId() {
+ public Integer getId() {
      return this.id;
  }
 
@@ -78,7 +80,7 @@ public void setId(int id) {
   * @return the price
   */
  public Float getPrice() {
-     return price;
+     return this.price;
  }
 
  /**
@@ -88,11 +90,27 @@ public void setId(int id) {
      this.price = price;
  }
 
+ public Integer getInsertionDate() {
+     return this.insertionDate;
+ }
+
+ public byte[] getPhoto() {
+     return this.photo;
+ }
+
+ /**
+  * @param photo the photo to set
+  */
+ public void setPhoto(byte[] photo) {
+     this.photo = photo;
+ }
+
+ 
 
 
  @Override
  public String toString() {
-  return "Name: " + this.getName() + "\n" + "Category: " + this.getCategory() +  "\n"+ "Country of Origin: " + this.getCountryOrigin() + "\n"+ "Price: " + this.getPrice();
+  return "Name: " + this.getName() + "<br>" + "Category: " + this.getCategory() +  "<br>"+ "Country of Origin: " + this.getCountryOrigin() + "<br>"+ "Price: " + this.getPrice();
  }
    
 }
