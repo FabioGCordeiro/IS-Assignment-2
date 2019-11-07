@@ -1,12 +1,9 @@
 package ejb;
 
-import java.io.InputStream;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.Query;
-import javax.sql.rowset.serial.SerialBlob;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

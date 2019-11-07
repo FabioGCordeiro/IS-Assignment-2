@@ -15,11 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import java.sql.Blob;
-import java.sql.SQLException;
-import javax.sql.rowset.serial.SerialBlob;
 import org.apache.commons.io.IOUtils;
-import java.io.ByteArrayOutputStream;
 
 import ejb.ItemsEJBRemote;;
 
@@ -50,6 +46,9 @@ public class AddItem extends HttpServlet {
         // obtains input stream of the upload file
         photo = filePart.getInputStream();
     }
+
+    byte[] photoBytes;
+    photoBytes = IOUtils.toByteArray(photo);
     
 
     //STUFF
@@ -69,9 +68,6 @@ public class AddItem extends HttpServlet {
     int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0]));
 
     HttpSession session=request.getSession();
-
-    byte[] photoBytes;
-    photoBytes = IOUtils.toByteArray(photo);
 
 
     if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate, photoBytes)){

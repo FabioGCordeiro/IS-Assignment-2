@@ -1,10 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
 
@@ -48,33 +45,31 @@ public class ShowItem extends HttpServlet {
         String email = session.getAttribute("email").toString();
 
         User user = uejbremote.getUser(email);
-
         List<Item> userItems = user.getItems();
 
         int id = Integer.parseInt(request.getParameter("id"));
         session.setAttribute("id", id);
 
         Item itemToDetail = ejbremote.getItem(id);
-
         PrintWriter out = response.getWriter();
-
-
-        byte[] imgData = itemToDetail.getPhoto();
-
-        String encodedImage = Base64.getEncoder().encodeToString(imgData);
-
-        String url = "data:image/jpg;base64," + encodedImage;
         
+        //CREATE BASE64 IMAGE URL
+        byte[] imgData = itemToDetail.getPhoto();
+        String encodedImage = Base64.getEncoder().encodeToString(imgData);
+        String url = "data:image/jpg;base64," + encodedImage;
 
+        //DISPLAY ITEM INFORMATION + IMAGE + BUTTON IF IT IS A USER'S ITEM
         out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
         for (Item item : userItems){
-        if(item.getId() == id){
-            out.println("<a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
+            if(item.getId() == id){
+                out.println("<a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
+            }
         }
 
-        out.close();
+        //LOGOUT BUTTON
+        out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
 
-    }
+        out.close();
  }
 
  /**
