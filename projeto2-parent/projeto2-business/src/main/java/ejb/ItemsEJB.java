@@ -1,9 +1,12 @@
 package ejb;
 
+import java.io.InputStream;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.Query;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,16 +18,17 @@ import data.User;
  */
 @Stateless
 public class ItemsEJB implements ItemsEJBRemote {
- @PersistenceContext(name="Users")
- EntityManager em;
+    @PersistenceContext(name = "Users")
+    EntityManager em;
 
-    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail, Integer insertionDate){
-        if(!name.equals("") && !category.equals("") && !countryOrigin.equals("")){
-            Item newItem = new Item(name, category, countryOrigin, price,insertionDate);
+    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail,Integer insertionDate, byte[] photo) {
+        if (!name.equals("") && !category.equals("") && !countryOrigin.equals("")) {
+            Item newItem = new Item(name, category, countryOrigin, price, insertionDate);
             Query q = em.createQuery("from User u where u.email = :e");
-            q.setParameter("e",userEmail);
+            q.setParameter("e", userEmail);
             User user = (User) q.getSingleResult();
             newItem.setUser(user);
+            newItem.setPhoto(photo);
             em.persist(newItem);
             return true; 
         }

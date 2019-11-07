@@ -1,7 +1,11 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,44 +23,57 @@ import ejb.UsersEJBRemote;
 
 @WebServlet("/ShowItem")
 public class ShowItem extends HttpServlet {
- private static final long serialVersionUID = 1L;
- @EJB
- ItemsEJBRemote ejbremote;
- @EJB
- UsersEJBRemote uejbremote;
+    private static final long serialVersionUID = 1L;
+    @EJB
+    ItemsEJBRemote ejbremote;
+    @EJB
+    UsersEJBRemote uejbremote;
 
- /**
-  * @see HttpServlet#HttpServlet()
-  */
- public ShowItem() {
-  super();
- }
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ShowItem() {
+        super();
+    }
 
- /**
-  * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-  */
- protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    response.setContentType("text/html");
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
 
-    HttpSession session = request.getSession();
-    String email = session.getAttribute("email").toString();
+        HttpSession session = request.getSession();
+        String email = session.getAttribute("email").toString();
 
-    User user = uejbremote.getUser(email);
+        User user = uejbremote.getUser(email);
 
-    List<Item> userItems = user.getItems();
+        List<Item> userItems = user.getItems();
 
-    int id = Integer.parseInt(request.getParameter("id"));
-    session.setAttribute("id", id);
-    
-    Item itemToDetail = ejbremote.getItem(id);
+        int id = Integer.parseInt(request.getParameter("id"));
+        session.setAttribute("id", id);
 
-    out.println(itemToDetail.toString());
+        Item itemToDetail = ejbremote.getItem(id);
 
-    for (Item item : userItems){
+        PrintWriter out = response.getWriter();
+
+
+        byte[] imgData = itemToDetail.getPhoto();
+
+        String encodedImage = Base64.getEncoder().encodeToString(imgData);
+
+        String url = "data:image/jpg;base64," + encodedImage;
+        
+
+        out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
+        for (Item item : userItems){
         if(item.getId() == id){
-            out.println("<br><a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
+            out.println("<a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
         }
+
+        out.close();
+
     }
  }
 

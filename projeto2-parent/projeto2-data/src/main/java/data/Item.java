@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ public class Item implements Serializable {
  private String countryOrigin;
  private Float price;
  private Integer insertionDate;  
- //FALTA FOTOGRAFIA
+ byte[] photo;
  @ManyToOne
  private User user;
  
@@ -92,6 +93,17 @@ public void setId(int id) {
 
  public Integer getInsertionDate() {
      return this.insertionDate;
+ }
+
+ public byte[] getPhoto() {
+     return this.photo;
+ }
+
+ /**
+  * @param photo the photo to set
+  */
+ public void setPhoto(byte[] photo) {
+     this.photo = photo;
  }
 
  
