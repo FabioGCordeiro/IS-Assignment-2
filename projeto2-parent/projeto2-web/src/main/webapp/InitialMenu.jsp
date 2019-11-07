@@ -7,12 +7,45 @@ session.setAttribute("email",null);
 %>
 
 <html>
-    <head>
+    <title>MyBay</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body {font-family: "Lato", sans-serif}
+
+    body, html {height: 100%}
+    .bgimg {
+        background-image: url('myBayFinal.jpg');
+        background-repeat: no-repeat;
+        min-height: 100%;
+        background-position: center;
+        background-size: 75%;
+    }
+    </style>
+       
+    <!--<head>
         <title>MyBay - Initial Menu</title>
-    </head>
-    <body>
-        <h1>Welcome to MyBay!</h1><br>
-        <a href="Register.jsp"><button> Create Account </button></a><br><br>
-        <a href="Login.jsp"><button> Login </button></a>
+    </head>-->
+    <body >
+        
+        <div class="w3-top">
+            <div class="w3-row w3-padding w3-black">
+                <div class="w3-col s6">
+                    <a href="Login.jsp" class="w3-button w3-block w3-black w3-center">LOGIN</a>
+                </div>
+                <div class="w3-col s6">
+                    <a href="Register.jsp" class="w3-button w3-block w3-black">REGISTO</a>
+                </div>
+            </div>
+            <!--<h1>Welcome to MyBay!</h1><br>
+            <img src="myBay.jpg" alt="brand" width="250" height="160"><br><br>-->
+            </div>
+        
+        </div>
+        <div class="bgimg w3-display-container">
+        </div>
     </body>
 </html>
