@@ -24,7 +24,7 @@ if(user==null){
         </div>
 
         <form action="SendEmail">
-                <button type=submit value="Send Email">BORA BORA</button>
+                <button type=submit value="Send Email">SEND EMAIL</button>
         </form>
 
     </body>

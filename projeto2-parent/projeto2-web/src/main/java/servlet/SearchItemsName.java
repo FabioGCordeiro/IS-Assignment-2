@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import data.Item;
 import ejb.ItemsEJBRemote;
 
-@WebServlet("/SearchAllItems")
-public class SearchAllItems extends HttpServlet {
+@WebServlet("/SearchItemsName")
+public class SearchItemsName extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  ItemsEJBRemote ejbremote;
@@ -24,7 +24,7 @@ public class SearchAllItems extends HttpServlet {
  /**
   * @see HttpServlet#HttpServlet()
   */
- public SearchAllItems() {
+ public SearchItemsName() {
   super();
  }
 
@@ -35,7 +35,9 @@ public class SearchAllItems extends HttpServlet {
     PrintWriter out = response.getWriter();
     response.setContentType("text/html");
 
-    List<Item> items = ejbremote.getItems();
+    String name = request.getParameter("name");
+
+    List<Item> items = ejbremote.getItemsByName(name);
 
     if((Integer.parseInt(request.getParameter("order")) == 0)){
       //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
@@ -67,21 +69,22 @@ public class SearchAllItems extends HttpServlet {
     }
 
     //SEARCH BAR TO SEARCH PARTIALLY (OR NOT) BY NAME
-    out.println("<form action=SearchItemsName>Name:<input type=hidden name=order value=0><input type=text name=name></input><button type=submit value=Search>Search</button></form>");
+    out.println("<form action=SearchItemsName>Name:<input type=hidden name=order value=0></input><input type=text name=name></input><button type=submit value=Search>Search</button></form><br><br>");
+
 
     //DATA ORDERING BUTTONS
     out.println("<div style=position:absolute;top:10px;right:178px>Order By Date:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=0><button type=submit> Older To Recent </button><br></form><form action=SearchAllItems><input type=hidden name=order value=1></input><button type=submit> Recent To Older </button><br><br></form>");
+    out.println("<form action=SearchItemsName><input type=hidden name=order value=0></input><input type=hidden name=name value=" + name +"></input><button type=submit> Older To Recent </button><br></form><form action=SearchItemsName><input type=hidden name=order value=1></input><input type=hidden name=name value=" + name +"></input><button type=submit> Recent To Older </button><br><br></form>");
     out.println("</div>");
 
     //PRICE ORDERING BUTTONS
     out.println("<div style=position:absolute;top:100px;right:100px>Order By Price:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=2><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchAllItems><input type=hidden name=order value=3></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
+    out.println("<form action=SearchItemsName><input type=hidden name=order value=2></input><input type=hidden name=name value=" + name +"></input><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchItemsName><input type=hidden name=order value=3></input><input type=hidden name=name value=" + name +"></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
     out.println("</div>");
 
     //NAME ORDERING BUTTONS
     out.println("<div style=position:absolute;top:190px;right:188px>Order By Name:");
-    out.println("<form action=SearchAllItems><input type=hidden name=order value=4></input><button type=submit> A to Z </button><br></form><form action=SearchAllItems><input type=hidden name=order value=5><button type=submit> Z to A  </button><br><br></form>");
+    out.println("<form action=SearchItemsName><input type=hidden name=order value=4></input><input type=hidden name=name value=" + name +"></input><button type=submit> A to Z </button><br></form><form action=SearchItemsName><input type=hidden name=order value=5></input><input type=hidden name=name value=" + name +"></input><button type=submit> Z to A  </button><br><br></form>");
     out.println("</div>");
 
     //LOGOUT BUTTON

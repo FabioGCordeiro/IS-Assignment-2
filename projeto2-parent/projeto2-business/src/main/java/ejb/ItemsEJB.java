@@ -97,6 +97,12 @@ public class ItemsEJB implements ItemsEJBRemote {
         return items;
     }
 
+    public List<Item> getItemsByName(String name){
+        Query q = em.createQuery("from Item where name like '%"+ name +"%'");
+        List <Item> items = q.getResultList();
+        return items;
+    }
+
     public List<Item> getItemsByCountry(String country){
         Query q = em.createQuery("from Item where countryOrigin = :c");
         q.setParameter("c",country);
