@@ -60,7 +60,7 @@ if(user==null){
 </style>
 
     <body style="background-image: url('myBayFinal2.jpg');">
-        <div class="dropdown">
+        <div class="dropdown" style="position:absolute;">
         <button class="dropbtn w3-xxxlarge" style="font-weight:900">Main Menu</button>
         <div class="dropdown-content">
             <a href="UserMenu.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;"> User Menu </button></a>

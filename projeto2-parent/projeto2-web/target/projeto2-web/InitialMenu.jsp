@@ -4,6 +4,7 @@ pageEncoding="ISO-8859-1" session="false"%>
 <%
 HttpSession session = request.getSession();
 session.setAttribute("email",null);
+session.setAttribute("country",null);
 %>
 
 <html>

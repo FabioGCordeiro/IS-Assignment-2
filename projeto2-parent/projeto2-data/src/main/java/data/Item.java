@@ -13,12 +13,18 @@ public class Item implements Serializable {
  private static final long serialVersionUID = 1L;
  @Id @GeneratedValue(strategy=GenerationType.AUTO)
  Integer id;
+
+
+ byte[] photo;
+
+ 
+ @Column(nullable = false)
  private String name;
  private String category;
  private String countryOrigin;
  private Float price;
  private Integer insertionDate;  
- byte[] photo;
+
  @ManyToOne
  private User user;
  
