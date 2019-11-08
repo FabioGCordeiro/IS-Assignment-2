@@ -37,40 +37,49 @@ public class ShowItem extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
-        HttpSession session = request.getSession();
-        String email = session.getAttribute("email").toString();
-
-        User user = uejbremote.getUser(email);
-        List<Item> userItems = user.getItems();
-
-        int id = Integer.parseInt(request.getParameter("id"));
-        session.setAttribute("id", id);
-
-        Item itemToDetail = ejbremote.getItem(id);
-        PrintWriter out = response.getWriter();
-        
-        //CREATE BASE64 IMAGE URL
-        byte[] imgData = itemToDetail.getPhoto();
-        String encodedImage = Base64.getEncoder().encodeToString(imgData);
-        String url = "data:image/jpg;base64," + encodedImage;
-
-        //DISPLAY ITEM INFORMATION + IMAGE + BUTTON IF IT IS A USER'S ITEM
-        out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
-        for (Item item : userItems){
-            if(item.getId() == id){
-                out.println("<a href=" + "EditItem.jsp"+"><button> Edit Item</button></a><br><br>");
-                out.println("<a href=" + "DeleteItem.jsp"+"><button>Delete Item</button></a><br><br>");
+        try{
+            HttpSession session = request.getSession();
+            String email = session.getAttribute("email").toString();
+    
+            User user = uejbremote.getUser(email);
+            List<Item> userItems = user.getItems();
+            
+            if(!request.getParameter("id").equals("")){
+                int id = Integer.parseInt(request.getParameter("id"));
+                session.setAttribute("id", id);
+    
+                Item itemToDetail = ejbremote.getItem(id);
+                PrintWriter out = response.getWriter();
+                
+                //CREATE BASE64 IMAGE URL
+                byte[] imgData = itemToDetail.getPhoto();
+                String encodedImage = Base64.getEncoder().encodeToString(imgData);
+                String url = "data:image/jpg;base64," + encodedImage;
+    
+                //DISPLAY ITEM INFORMATION + IMAGE + BUTTON IF IT IS A USER'S ITEM
+                out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
+                for (Item item : userItems){
+                    if(item.getId() == id){
+                        out.println("<a href=" + "EditItem.jsp"+"><button> Edit Item</button></a><br><br>");
+                        out.println("<a href=" + "DeleteItem.jsp"+"><button>Delete Item</button></a><br><br>");
+                    }
+                }
+    
+                //LOGOUT BUTTON
+                out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
+    
+                out.close();
             }
+            else{
+                response.sendRedirect("Error.jsp");
+            }
+        }catch(NullPointerException | NumberFormatException e){
+            response.sendRedirect("Error.jsp");
         }
 
-        //LOGOUT BUTTON
-        out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
-
-        out.close();
  }
 
  /**

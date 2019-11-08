@@ -38,49 +38,59 @@ public class ShowUserItems extends HttpServlet {
     response.setContentType("text/html");
 
     HttpSession session = request.getSession();
-    String email = session.getAttribute("email").toString();
+    
+    try{
+        if(session.getAttribute("email").toString()!=null){
+          String email = session.getAttribute("email").toString();
 
-
-    User loggedUser = ejbremote.getUser(email);
-    List<Item> userItems = loggedUser.getItems();
-
-    if((Integer.parseInt(request.getParameter("order")) == 0)){
-      //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
-    }
-    else if((Integer.parseInt(request.getParameter("order")) == 1)){
-        //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
-        userItems.sort(Comparator.comparing(Item::getInsertionDate).reversed().thenComparing(Item::getId));
-    }
-    else if((Integer.parseInt(request.getParameter("order")) == 2)){
-      //ordena mais barato -> caro (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getPrice).thenComparing(Item::getId));
-    }
-    else if((Integer.parseInt(request.getParameter("order")) == 3)){
-      //ordena mais caro -> barato (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getPrice).reversed().thenComparing(Item::getId));
-    }
-    else if((Integer.parseInt(request.getParameter("order")) == 4)){
-      //ordena mais A -> Z (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).thenComparing(Item::getId));
-    }
-    else if((Integer.parseInt(request.getParameter("order")) == 5)){
-      //ordena mais Z -> A (primeiro por data, depois por id caso sejam iguais)
-      userItems.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).reversed().thenComparing(Item::getId));
-    }
-
-    for (Item item : userItems) {
-        out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
-    }
-
-
+          if(ejbremote.getUser(email)==null){
+            response.sendRedirect("Error.jsp");
+          }
+          else{
+            User loggedUser = ejbremote.getUser(email);
+            List<Item> userItems = loggedUser.getItems();
+      
+            if((Integer.parseInt(request.getParameter("order")) == 0)){
+              //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
+              userItems.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
+            }
+            else if((Integer.parseInt(request.getParameter("order")) == 1)){
+                //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
+                userItems.sort(Comparator.comparing(Item::getInsertionDate).reversed().thenComparing(Item::getId));
+            }
+            else if((Integer.parseInt(request.getParameter("order")) == 2)){
+              //ordena mais barato -> caro (primeiro por data, depois por id caso sejam iguais)
+              userItems.sort(Comparator.comparing(Item::getPrice).thenComparing(Item::getId));
+            }
+            else if((Integer.parseInt(request.getParameter("order")) == 3)){
+              //ordena mais caro -> barato (primeiro por data, depois por id caso sejam iguais)
+              userItems.sort(Comparator.comparing(Item::getPrice).reversed().thenComparing(Item::getId));
+            }
+            else if((Integer.parseInt(request.getParameter("order")) == 4)){
+              //ordena mais A -> Z (primeiro por data, depois por id caso sejam iguais)
+              userItems.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).thenComparing(Item::getId));
+            }
+            else if((Integer.parseInt(request.getParameter("order")) == 5)){
+              //ordena mais Z -> A (primeiro por data, depois por id caso sejam iguais)
+              userItems.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).reversed().thenComparing(Item::getId));
+            }
+      
+            for (Item item : userItems) {
+                out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
+            }
+      
     out.println("<html><title>MyBay - Search</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href=../lib/w3.css'><link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>");
     out.println("<body><div class='w3-container'><div class='w3-dropdown-hover' style=position:absolute;top:30px;right:100px><button class='w3-button w3-black'>Order by:</button><div class='w3-dropdown-content w3-bar-block w3-border'><form action=ShowUserItems><input type=hidden name=order value=0><button type=submit> Older To Recent </button><br></form><form action=ShowUserItems><input type=hidden name=order value=1></input><button type=submit> Recent To Older </button><br><br></form><form action=ShowUserItems><input type=hidden name=order value=4></input><button type=submit> A to Z </button><br></form><form action=ShowUserItems><input type=hidden name=order value=5><button type=submit> Z to A  </button></form><form action=ShowUserItems><input type=hidden name=order value=2><button type=submit> Cheapest To Most Expensive </button><br></form><form action=ShowUserItems><input type=hidden name=order value=3></input><button type=submit> Most Expensive To Cheapest  </button></form></div></div></div></body></html>");
-    
-    
     //LOGOUT BUTTON
     out.println("<div style=position:absolute;bottom:10px;left:45%><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
-
+          }
+        }
+        else{
+          response.sendRedirect("Error.jsp");
+        }
+      }catch(NullPointerException e){
+        response.sendRedirect("Error.jsp");
+      }
     
  }
 
