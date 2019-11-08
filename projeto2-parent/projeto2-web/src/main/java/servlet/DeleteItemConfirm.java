@@ -8,20 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import ejb.UsersEJBRemote;
 import ejb.ItemsEJBRemote;
 
-@WebServlet("/DeleteItem")
-public class DeleteItem extends HttpServlet {
+@WebServlet("/DeleteItemConfirm")
+public class DeleteItemConfirm extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
- ItemsEJBRemote ejbremote;
+ ItemsEJBRemote itemsejbremote;
+ @EJB
+ UsersEJBRemote ejbremote;
+
 
  /**
   * @see HttpServlet#HttpServlet()
   */
- public DeleteItem() {
+ public DeleteItemConfirm() {
   super();
  }
 
@@ -31,14 +34,18 @@ public class DeleteItem extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  HttpSession session = request.getSession();
-
-
-  String itemName = request.getParameter("name");
-
-  ejbremote.deleteItem(itemName, session.getAttribute("email").toString());
-  
-
+  if(!request.getParameter("email").equals("") && !request.getParameter("password").equals("") && !request.getParameter("id").equals("")){
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+    int id = Integer.parseInt(request.getParameter("id"));
+    if(ejbremote.checkUserLogin(email, password)){
+      itemsejbremote.deleteItem(id, email);
+      response.sendRedirect("MainMenu.jsp");
+    }
+  }
+  else{
+    response.sendRedirect("DeleteItem.jsp");
+  }
  }
 
  /**

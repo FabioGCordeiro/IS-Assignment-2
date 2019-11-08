@@ -18,6 +18,7 @@ if(user==null){
         <h1>Main Menu</h1>
         <a href="EditAccountInformation.jsp"><button> Edit Account Information </button></a><br><br>
         <a href="DeleteAccount.jsp"><button> Delete Account </button></a><br><br>
+        <a href="AddItem.jsp"><button> Add Item </button></a><br><br>
         <form action="ShowUserItems">
             <input type=hidden name=order value=0></input>
             <button type="submit"> Show Items </button><br><br>

@@ -32,13 +32,15 @@ public class Register extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  String username = request.getParameter("username");
-  String password = request.getParameter("password");
-  String email = request.getParameter("email");
-  String country = request.getParameter("country");
-
-  if(ejbremote.createUser(username, password, email, country)){
-      response.sendRedirect("Login.jsp");
+  if(!request.getParameter("username").equals("") && !request.getParameter("password").equals("") && !request.getParameter("email").equals("") && !request.getParameter("country").equals("")){
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String email = request.getParameter("email");
+    String country = request.getParameter("country");
+  
+    if(ejbremote.createUser(username, password, email, country)){
+        response.sendRedirect("Login.jsp");
+    }
   }
   else{
     response.sendRedirect("Register.jsp");

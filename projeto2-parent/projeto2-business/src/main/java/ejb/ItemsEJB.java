@@ -1,5 +1,6 @@
 package ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,9 +11,6 @@ import javax.persistence.PersistenceContext;
 import data.Item;
 import data.User;
 
-/**
- * Session Bean implementation class PlayersEJB
- */
 @Stateless
 public class ItemsEJB implements ItemsEJBRemote {
  @PersistenceContext(name="User")
@@ -52,14 +50,14 @@ public class ItemsEJB implements ItemsEJBRemote {
         
     }
 
-    public void deleteItem(String itemName, String userEmail){
+    public void deleteItem(int itemId, String userEmail){
         Query q = em.createQuery("from User u where u.email = :e");
         q.setParameter("e",userEmail);
         User user = (User) q.getSingleResult();
 
         // DELETE ITEMS
         for (Item i : user.getItems()) {
-            if(i.getName().equals(itemName)){
+            if(i.getId().equals(itemId)){
                 q = em.createQuery("delete Item item where item.id = :i");
                 q.setParameter("i",i.getId());
             }
@@ -74,50 +72,84 @@ public class ItemsEJB implements ItemsEJBRemote {
         return items;
     }
 
-    public List<Item> getItemsByPrice(Float lowestPrice, Float HighestPrice){
-        Query q = em.createQuery("from Item where price >= :p1 and price <= :p2");
-        q.setParameter("p1",lowestPrice);
-        q.setParameter("p2", HighestPrice);
-        List <Item> items = q.getResultList();
+    public List<Item> getItemsByPrice(Float lowestPrice, Float highestPrice){
+        if(lowestPrice!=null && highestPrice!=null){
+            Query q = em.createQuery("from Item where price >= :p1 and price <= :p2");
+            q.setParameter("p1",lowestPrice);
+            q.setParameter("p2", highestPrice);
+            List <Item> items = q.getResultList();
+            return items;
+        }
 
-        return items;
+        return null;
     }
 
     public List<Item> getItemsByDate(int date){
-        Query q = em.createQuery("from Item where insertionDate >= :p1");
-        q.setParameter("p1",date);
-        List <Item> items = q.getResultList();
-        return items;
+        if((Integer)date!=null){
+            Query q = em.createQuery("from Item where insertionDate >= :p1");
+            q.setParameter("p1",date);
+            List <Item> items = q.getResultList();
+            return items;
+        }
+
+        return null;
     }
 
     public List<Item> getItemsByCategory(String category){
-        Query q = em.createQuery("from Item where category like '%"+ category +"%'");
-        List <Item> items = q.getResultList();
-        
-        return items;
+        if(!category.equals("")){
+            Query q = em.createQuery("from Item where category like '%"+ category +"%'");
+            List <Item> items = q.getResultList();
+            
+            return items;
+        }
+
+        return null;
     }
 
     public List<Item> getItemsByName(String name){
-        Query q = em.createQuery("from Item where name like '%"+ name +"%'");
-        List <Item> items = q.getResultList();
-        return items;
+        if(!name.equals("")){
+            Query q = em.createQuery("from Item where name like '%"+ name +"%'");
+            List <Item> items = q.getResultList();
+            return items; 
+        }
+
+        return null;
     }
 
     public List<Item> getItemsByCountry(String country){
-        Query q = em.createQuery("from Item where countryOrigin = :c");
-        q.setParameter("c",country);
+        if(!country.equals("")){
+            Query q = em.createQuery("from Item where countryOrigin = :c");
+            q.setParameter("c",country);
+            List <Item> items = q.getResultList();
+            
+            return items;
+        }
+
+        return null;
+    }
+
+    public Item getItem(Integer id){
+        if(id!=null){
+            Query q = em.createQuery("from Item i where i.id = :i");
+            q.setParameter("i",id);
+            Item item = (Item) q.getSingleResult();
+            return item;
+        }
+
+        return null;
+    }
+
+    public List<Item> getNewestItems(){
+        Query q = em.createQuery("from Item");
         List <Item> items = q.getResultList();
+
+        List<Item> newestItems = new ArrayList<Item>();
         
-        return items;
+        for(int i=0; i<3; i++){
+            newestItems.add(i, items.get(i));
+        }
+        return newestItems;
     }
-
-    public Item getItem(int id){
-        Query q = em.createQuery("from Item i where i.id = :i");
-        q.setParameter("i",id);
-        Item item = (Item) q.getSingleResult();
-        return item;
-    }
-
 
     
 }

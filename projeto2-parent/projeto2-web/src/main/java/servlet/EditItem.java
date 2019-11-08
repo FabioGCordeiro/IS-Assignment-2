@@ -30,24 +30,32 @@ public class EditItem extends HttpServlet {
   */
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html");
-
-    String name = request.getParameter("name");
-    String category = request.getParameter("category");
-    String countryOrigin = request.getParameter("country");
-    Float price = Float.parseFloat(request.getParameter("price"));
-
-    HttpSession session = request.getSession();
-    int id = Integer.parseInt(session.getAttribute("id").toString());
     
+    if(!request.getParameter("name").equals("") && !request.getParameter("category").equals("") && !request.getParameter("country").equals("") && !request.getParameter("price").equals("")){
+        String name = request.getParameter("name");
+        String category = request.getParameter("category");
+        String countryOrigin = request.getParameter("country");
+        Float price = (float) 0;
+        try{
+        price = Float.parseFloat(request.getParameter("price"));
+        }
+        catch(NumberFormatException e){
+            response.sendRedirect("AddItem.jsp");
+        }
+        //GET SESSION
+        HttpSession session = request.getSession();
+        int id = Integer.parseInt(session.getAttribute("id").toString());
 
-    if(ejbremote.editItem(name, category,countryOrigin, price, id)){
-        session.setAttribute("id", "");
-        response.sendRedirect("MainMenu.jsp");
+
+        if(ejbremote.editItem(name, category,countryOrigin, price, id)){
+            session.setAttribute("id", "");
+            response.sendRedirect("MainMenu.jsp");
+        }
     }
     else{
-        response.sendRedirect("EditItem.jsp");
+    response.sendRedirect("EditItem.jsp");
     }
-    }
+}
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

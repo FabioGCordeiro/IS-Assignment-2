@@ -12,6 +12,7 @@ if(user==null){
 
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>MyBay - Add Item</title>
     </head>
     <body>

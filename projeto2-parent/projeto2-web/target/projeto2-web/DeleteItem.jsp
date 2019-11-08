@@ -5,6 +5,10 @@ pageEncoding="ISO-8859-1" session="false"%>
 HttpSession session = request.getSession(false);
 String user = (String) session.getAttribute("email");
 
+String id = session.getAttribute("id").toString();
+
+request.setAttribute("id", id);
+
 if(user==null){
     response.sendRedirect("Error.jsp");
 }
@@ -12,13 +16,16 @@ if(user==null){
 
 <html>
     <head>
-        <title>MyBay - Delete Item</title>
+        <title>MyBay - Edit Account Information</title>
     </head>
     <body>
-        <form action="DeleteItem">
-            <h2>Please enter the item's name to confirm:</h2><br><br>
-            Item Name:
-            <input type="text" name = "name"><br><br>
+        <form action="DeleteItemConfirm">
+            <h2>Please enter your credentials before deleting the item:</h2><br><br>
+            Email:
+            <input type="text" name = "email"><br><br>
+            Password:
+            <input type="password" name = "password"><br><br>
+            <input type="hidden" name="id" value=${id}></input>
             <input type="submit" value="Confirm">
         </form>
 

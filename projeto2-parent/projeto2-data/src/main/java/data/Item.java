@@ -110,7 +110,7 @@ public void setId(int id) {
 
  @Override
  public String toString() {
-  return "Name: " + this.getName() + "<br>" + "Category: " + this.getCategory() +  "<br>"+ "Country of Origin: " + this.getCountryOrigin() + "<br>"+ "Price: " + this.getPrice();
+  return "Name: " + this.getName() + "<br>" + "Category: " + this.getCategory() +  "<br>"+ "Country of Origin: " + this.getCountryOrigin() + "<br>"+ "Price: " + this.getPrice() + "€";
  }
    
 }

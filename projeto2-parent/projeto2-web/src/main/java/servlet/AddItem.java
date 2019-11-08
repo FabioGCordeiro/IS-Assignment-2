@@ -37,45 +37,52 @@ public class AddItem extends HttpServlet {
   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
   */
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html");
+  response.setContentType("text/html; charset=UTF-8");
+
+
     //PHOTO
     InputStream photo = null;
-
     Part filePart = request.getPart("photo");
     if (filePart != null) {
         // obtains input stream of the upload file
         photo = filePart.getInputStream();
     }
-
     byte[] photoBytes;
     photoBytes = IOUtils.toByteArray(photo);
-    
 
-    //STUFF
+    //GET PARAMETERS
+    if(!request.getParameter("name").equals("") && !request.getParameter("category").equals("") && !request.getParameter("country").equals("") && !request.getParameter("price").equals("")){
+      String name = request.getParameter("name");
+      String category = request.getParameter("category");
+      String countryOrigin = request.getParameter("country");
+      Float price = (float) 0;
+      try{
+      price = Float.parseFloat(request.getParameter("price"));
+      }
+      catch(NumberFormatException e){
+        response.sendRedirect("AddItem.jsp");
+      }
 
-    String name = request.getParameter("name");
-    String category = request.getParameter("category");
-    String countryOrigin = request.getParameter("country");
-    Float price = Float.parseFloat(request.getParameter("price"));
-
-    Date d = new Date();
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-    String date = formatter.format(d);
-   
-    String [] dateSplit = date.split(" ");
-    String[] daySplit = dateSplit[0].split("-");
-    
-    int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0]));
-
-    HttpSession session=request.getSession();
+      //CREATES INSERTION DATE AS INT
+      Date d = new Date();
+      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+      String date = formatter.format(d);
+      String [] dateSplit = date.split(" ");
+      String[] daySplit = dateSplit[0].split("-");
+      int insertionDate = (Integer.parseInt(daySplit[2])*10000) + (Integer.parseInt(daySplit[1])*100) + (Integer.parseInt(daySplit[0]));
+      
+      //GET SESSION
+      HttpSession session=request.getSession();
 
 
-    if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate, photoBytes)){
-      response.sendRedirect("MainMenu.jsp");
+      if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate, photoBytes)){
+        response.sendRedirect("MainMenu.jsp");
+      }
     }
     else{
       response.sendRedirect("AddItem.jsp");
     }
+
   }
 
   /**

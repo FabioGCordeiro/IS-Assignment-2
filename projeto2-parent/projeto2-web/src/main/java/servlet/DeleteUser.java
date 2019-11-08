@@ -30,13 +30,14 @@ public class DeleteUser extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  String email = request.getParameter("email");
-  String password = request.getParameter("password");
+  if(!request.getParameter("email").equals("") && !request.getParameter("password").equals("")){
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
-  if(ejbremote.checkUserLogin(email, password)){
-    ejbremote.deleteUser(email);
-    
-    response.sendRedirect("InitialMenu.jsp");
+    if(ejbremote.checkUserLogin(email, password)){
+      ejbremote.deleteUser(email);
+      response.sendRedirect("InitialMenu.jsp");
+    }
   }
   else{
     response.sendRedirect("DeleteAccount.jsp");

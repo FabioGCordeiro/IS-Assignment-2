@@ -39,7 +39,7 @@ public class ShowItem extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("text/html; charset=UTF-8");
 
         HttpSession session = request.getSession();
         String email = session.getAttribute("email").toString();
@@ -62,7 +62,8 @@ public class ShowItem extends HttpServlet {
         out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
         for (Item item : userItems){
             if(item.getId() == id){
-                out.println("<a href=" + "EditItem.jsp"+"><button> Edit Items </button></a><br><br>");
+                out.println("<a href=" + "EditItem.jsp"+"><button> Edit Item</button></a><br><br>");
+                out.println("<a href=" + "DeleteItem.jsp"+"><button>Delete Item</button></a><br><br>");
             }
         }
 

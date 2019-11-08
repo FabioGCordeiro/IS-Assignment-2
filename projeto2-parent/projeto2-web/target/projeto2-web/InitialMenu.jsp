@@ -30,7 +30,6 @@ session.setAttribute("email",null);
         <title>MyBay - Initial Menu</title>
     </head>-->
     <body >
-        
         <div class="w3-top">
             <div class="w3-row w3-padding w3-black">
                 <div class="w3-col s6">

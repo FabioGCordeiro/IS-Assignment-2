@@ -30,11 +30,12 @@ public class CheckUserCredentials extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  String email = request.getParameter("email");
-  String password = request.getParameter("password");
-
-  if(ejbremote.checkUserLogin(email, password)){
-    response.sendRedirect("EditUserInformation.jsp");
+  if(!request.getParameter("email").equals("") && !request.getParameter("password").equals("")){
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+    if(ejbremote.checkUserLogin(email, password)){
+      response.sendRedirect("EditUserInformation.jsp");
+    }
   }
   else{
     response.sendRedirect("EditAccountInformation.jsp");

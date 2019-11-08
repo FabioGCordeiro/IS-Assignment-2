@@ -31,18 +31,21 @@ public class EditUserInformation extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
-  String email = request.getParameter("email");
-  String password = request.getParameter("password");
-  String username = request.getParameter("username");
-  String country = request.getParameter("country");
-  HttpSession session = request.getSession();
-  String emailS = session.getAttribute("email").toString();
-  
-  
-  if(ejbremote.editUserInfo(username, password, email, country, emailS)){
-    response.sendRedirect("UserMenu.jsp");
-    session.setAttribute("country",country);
-    session.setAttribute("email", email);
+  if(!request.getParameter("email").equals("") && !request.getParameter("password").equals("") && !request.getParameter("username").equals("") && !request.getParameter("country").equals("")){
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+    String username = request.getParameter("username");
+    String country = request.getParameter("country");
+
+    HttpSession session = request.getSession();
+    String emailSession = session.getAttribute("email").toString();
+    
+    
+    if(ejbremote.editUserInfo(username, password, email, country, emailSession)){
+      session.setAttribute("country",country);
+      session.setAttribute("email", email);
+      response.sendRedirect("UserMenu.jsp");
+    }
   }
   else{
     response.sendRedirect("EditUserInformation.jsp");

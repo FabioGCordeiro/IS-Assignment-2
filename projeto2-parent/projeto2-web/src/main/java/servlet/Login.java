@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data.User;
+import ejb.EmailServiceEJBRemote;
 import ejb.UsersEJBRemote;
 
 @WebServlet("/Login")
@@ -18,6 +21,8 @@ public class Login extends HttpServlet {
  private static final long serialVersionUID = 1L;
  @EJB
  UsersEJBRemote ejbremote;
+ @EJB
+ public EmailServiceEJBRemote emailejbremote;
 
  /**
   * @see HttpServlet#HttpServlet()
@@ -40,6 +45,8 @@ public class Login extends HttpServlet {
   HttpSession session=request.getSession();  
   session.setAttribute("email",email);  
   session.setAttribute("country", loggedUser.getCountry());
+
+  //emailejbremote.sendAccountActivationLinkToBuyer("fabiocordeiro1998@gmail.com", "Fabz");
 
   if(ejbremote.checkUserLogin(email, password)){
     response.sendRedirect("MainMenu.jsp");
