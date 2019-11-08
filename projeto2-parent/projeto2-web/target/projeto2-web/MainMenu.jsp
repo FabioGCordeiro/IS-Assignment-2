@@ -11,7 +11,6 @@ if(user==null){
 %>
 
 <html>
-<<<<<<< HEAD
 <title>MyBay - MainMenu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../lib/w3.css">
@@ -65,25 +64,13 @@ if(user==null){
         <button class="dropbtn w3-xxxlarge" style="font-weight:900">Main Menu</button>
         <div class="dropdown-content">
             <a href="UserMenu.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;"> User Menu </button></a>
-            <a href="ShoppingMenu.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Shopping Menu </button></a>
+            <a href="SearchItems.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Shopping Menu </button></a>
         </div>
         </div>
         <br><br>
         <br><br>
         <div style=position:absolute;bottom:10px;left:50%>
                 <a href=InitialMenu.jsp><button class="w3-btn w3-xlarge w3-round-xlarge w3-deep-purple w3-hover-black" style="font-weight:900;"> Logout </button></a><br><br>
-=======
-    <head>
-        <title>MyBay - Main Menu</title>
-    </head>
-    <body>
-        <h1>Main Menu</h1>
-        <a href="UserMenu.jsp"><button> User Menu </button></a><br><br>
-        <a href="SearchItems.jsp"><button> Shopping Menu </button></a><br><br>
-        
-        <div style="position:absolute;top:10px;right:10px" >
-            <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
->>>>>>> master
         </div>
     </body>
 </html>

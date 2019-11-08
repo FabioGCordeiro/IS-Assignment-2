@@ -41,12 +41,12 @@ public class Login extends HttpServlet {
   User loggedUser = ejbremote.getUser(email);
 
   HttpSession session=request.getSession();  
-  session.setAttribute("email",email);  
-  session.setAttribute("country", loggedUser.getCountry());
 
   //emailejbremote.sendAccountActivationLinkToBuyer("fabiocordeiro1998@gmail.com", "Fabz");
 
   if(ejbremote.checkUserLogin(email, password)){
+    session.setAttribute("email",email);  
+    session.setAttribute("country", loggedUser.getCountry());
     response.sendRedirect("MainMenu.jsp");
   }
   else{

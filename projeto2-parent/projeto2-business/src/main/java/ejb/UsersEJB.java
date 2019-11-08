@@ -6,6 +6,7 @@ import java.security.spec.InvalidKeySpecException;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import data.Item;
@@ -85,26 +86,41 @@ public class UsersEJB implements UsersEJBRemote {
     }
 
     public boolean checkUserLogin(String email, String password){
-        Query q = em.createQuery("from User u where u.email = :e");
-        q.setParameter("e",email);
-        User user = (User) q.getSingleResult();
-        Hash passwordHash = new Hash();
-        try {
-            if (passwordHash.validatePassword(password, user.getPassword())) {
-                return true;
-            }
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        User user = null;
+        try{
+            Query q = em.createQuery("from User u where u.email = :e");
+            q.setParameter("e",email);
+            user = (User) q.getSingleResult();
+        }catch(NoResultException e){
+            return false;
         }
-        return false;
+        if(user!=null){
+            Hash passwordHash = new Hash();
+            try {
+                if (passwordHash.validatePassword(password, user.getPassword())) {
+                    return true;
+                }
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return false;
+        }
+        else{
+            return false;
+        }
+        
     }
 
     public User getUser(String email){
-        Query q = em.createQuery("from User u where u.email = :e");
-        q.setParameter("e",email);
-        User user = (User) q.getSingleResult();
-        return user;
+        User user = null;
+        try{
+            Query q = em.createQuery("from User u where u.email = :e");
+            q.setParameter("e",email);
+            user = (User) q.getSingleResult();
+            return user;
+        }catch(NoResultException e){
+            return null;
+        }
     }
-
 }
