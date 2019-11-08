@@ -11,28 +11,42 @@ if(user==null){
 %>
 
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>MyBay - Add Item</title>
-    </head>
-    <body>
-        <form method="post" action="AddItem" enctype="multipart/form-data">
-            <h1>Add Item</h1><br><br>
-            Item name:
-            <input type="text" name = "name"><br><br>
-            Category:
-            <input type="text" name = "category"><br><br>
-            Country of Origin:
-            <input type="text" name = "country"><br><br>
-            Price(€):
-            <input type="text" name = "price"><br><br>
-            Photo:
-            <td><input type="file" name = "photo" size="50"></input></td><br><br>
-            <input type="submit" value="Add">
+<title>MyBay - Add Item</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../lib/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<header class="w3-container w3-black">
+  <h1>Add Item</h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+
+    <form method="post" action="AddItem" enctype="multipart/form-data" class="w3-container w3-card-4">
+
+        <p>
+            <input class="w3-input" type="text" name="name" style="width:90%">
+            <label class="w3-label w3-validate">Item name</label></p>
+        <p>
+            <input class="w3-input" type="text" name="category" style="width:90%">
+            <label class="w3-label w3-validate">Category</label></p>
+        <p>
+            <input class="w3-input" type="text" name="country" style="width:90%">
+            <label class="w3-label w3-validate">Country of Origin</label></p>
+        <p>
+            <input class="w3-input" type="text" name="price" style="width:90%">
+            <label class="w3-label w3-validate">Price(€)</label></p>
             
-            <div style="position:absolute;top:10px;right:10px" >
-                <a href="InitialMenu.jsp"><button> Logout </button></a><br><br>
-            </div>
-        </form>
-    </body>
-</html>
+            <td><input type="file" name = "photo" size="50"></input></td><br><br>
+            
+        <p>
+        <input class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Add" >
+        <p class="w3-right"><a href="InitialMenu.jsp">Logout!</a></p></p>
+    </form>
+
+</div>
+
+</body>
+</html> 
