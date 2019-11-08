@@ -2,12 +2,12 @@
 pageEncoding="ISO-8859-1" session="false"%>
 
 <%
-/*HttpSession session = request.getSession(false);
+HttpSession session = request.getSession(false);
 String user = (String) session.getAttribute("email");
 
 if(user==null){
     response.sendRedirect("Error.jsp");
-}*/
+}
 %>
 
 <html>
@@ -19,10 +19,9 @@ if(user==null){
         .dropbtn {
           background-color:black;
           color: white;
-          padding: 16px;
           font-size: 16px;
           block-size: 150px;
-          inline-size: 1900px;
+          inline-size:1900px;
           border: none;
           cursor: pointer;
         }
@@ -69,7 +68,7 @@ if(user==null){
         </div>
         <br><br>
         <br><br>
-        <div style=position:absolute;bottom:10px;left:50%>
+        <div style=position:absolute;bottom:10px;left:45%>
                 <a href=InitialMenu.jsp><button class="w3-btn w3-xlarge w3-round-xlarge w3-deep-purple w3-hover-black" style="font-weight:900;"> Logout </button></a><br><br>
         </div>
     </body>
