@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -38,6 +39,7 @@ public class AddItem extends HttpServlet {
   */
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html; charset=UTF-8");
+  Logger logger = Logger.getLogger(AddItem.class.getName());
 
 
     //PHOTO
@@ -55,11 +57,12 @@ public class AddItem extends HttpServlet {
       String name = request.getParameter("name");
       String category = request.getParameter("category");
       String countryOrigin = request.getParameter("country");
-      Float price = (float) 0;
+      Float price = null;
       try{
       price = Float.parseFloat(request.getParameter("price"));
       }
       catch(NumberFormatException e){
+        logger.warning("Item creation failed. Floats are designated by '8.6' not '8,6'");
         response.sendRedirect("AddItem.jsp");
       }
 
@@ -80,6 +83,7 @@ public class AddItem extends HttpServlet {
       }
     }
     else{
+      logger.warning("Item creation failed. Empty fields are not accepted.");
       response.sendRedirect("AddItem.jsp");
     }
 

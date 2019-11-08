@@ -2,6 +2,7 @@ package ejb;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
@@ -27,6 +28,8 @@ public class EmailServiceEJB extends Authenticator implements EmailServiceEJBRem
 @EJB
 ItemsEJBRemote ejbremote;
 
+Logger logger = Logger.getLogger(EmailServiceEJB.class.getName());
+
 public PasswordAuthentication getPasswordAuth(String serviceUsername, String servicePassword) {
     return new PasswordAuthentication(serviceUsername, servicePassword);
 }
@@ -45,7 +48,6 @@ public void sendAccountActivationLinkToBuyer() {
         props.put("mail.smtp.port", port);
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.starttls.required", "true");
-        props.put("mail.smtp.debug", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.socketFactory.port", port);
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -58,7 +60,6 @@ public void sendAccountActivationLinkToBuyer() {
         };
 
         Session session = Session.getInstance(props, authenticator);
-        session.setDebug(true);
 
         // Destination of the email
         String to = "fabiocordeiro1998@gmail.com";
@@ -87,6 +88,8 @@ public void sendAccountActivationLinkToBuyer() {
             transport.connect(host, port, serviceUsername, servicePassword);
             Transport.send(message, message.getAllRecipients());
             transport.close();
+
+            logger.info("Catalogue sent");
 
         }catch (AddressException e) {
             e.printStackTrace(); 

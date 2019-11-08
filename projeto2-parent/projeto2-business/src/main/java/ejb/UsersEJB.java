@@ -2,6 +2,7 @@ package ejb;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.Query;
@@ -20,6 +21,8 @@ import data.Hash;
 public class UsersEJB implements UsersEJBRemote {
     @PersistenceContext(name = "User")
     EntityManager em;
+
+    Logger logger = Logger.getLogger(UsersEJB.class.getName());
 
     public boolean createUser(String username, String password, String email, String country) {
         if (!username.equals("") && !password.equals("") && !email.equals("") && !country.equals("")) {
@@ -86,6 +89,7 @@ public class UsersEJB implements UsersEJBRemote {
     }
 
     public boolean checkUserLogin(String email, String password){
+        logger.info("CHECK CREDENTIALS");
         User user = null;
         try{
             Query q = em.createQuery("from User u where u.email = :e");

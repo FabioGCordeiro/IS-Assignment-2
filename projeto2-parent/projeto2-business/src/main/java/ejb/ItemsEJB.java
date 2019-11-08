@@ -2,6 +2,8 @@ package ejb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import javax.ejb.Stateless;
 import javax.persistence.Query;
@@ -16,15 +18,20 @@ public class ItemsEJB implements ItemsEJBRemote {
  @PersistenceContext(name="User")
  EntityManager em;
 
+
+ Logger logger = Logger.getLogger(ItemsEJB.class.getName());
+
     public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail,Integer insertionDate, byte[] photo) {
-        if (!name.equals("") && !category.equals("") && !countryOrigin.equals("")) {
+        if (!name.equals("") && !category.equals("") && !countryOrigin.equals("") && price!=null) {
             Item newItem = new Item(name, category, countryOrigin, price, insertionDate);
+            logger.info("Trying to create a new item: "+newItem.toString());
             Query q = em.createQuery("from User u where u.email = :e");
             q.setParameter("e", userEmail);
             User user = (User) q.getSingleResult();
             newItem.setUser(user);
             newItem.setPhoto(photo);
             em.persist(newItem);
+            logger.info("Item created");
             return true; 
         }
         return false;
@@ -46,8 +53,6 @@ public class ItemsEJB implements ItemsEJBRemote {
         else{
             return false;
         }
-
-        
     }
 
     public void deleteItem(int itemId, String userEmail){
