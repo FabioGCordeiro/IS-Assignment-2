@@ -38,6 +38,9 @@ public class DeleteUser extends HttpServlet {
       ejbremote.deleteUser(email);
       response.sendRedirect("InitialMenu.jsp");
     }
+    else{
+      response.sendRedirect("DeleteAccount.jsp");
+    }
   }
   else{
     response.sendRedirect("DeleteAccount.jsp");

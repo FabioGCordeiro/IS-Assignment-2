@@ -36,6 +36,9 @@ public class CheckUserCredentials extends HttpServlet {
     if(ejbremote.checkUserLogin(email, password)){
       response.sendRedirect("EditUserInformation.jsp");
     }
+    else{
+      response.sendRedirect("EditAccountInformation.jsp");
+    }
   }
   else{
     response.sendRedirect("EditAccountInformation.jsp");
