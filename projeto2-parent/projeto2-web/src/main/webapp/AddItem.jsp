@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="ISO-8859-1" session="false"%>
 
 <%
@@ -37,7 +37,7 @@ if(user==null){
             <label class="w3-label w3-validate">Country of Origin</label></p>
         <p>
             <input class="w3-input" type="text" name="price" style="width:90%">
-            <label class="w3-label w3-validate">Price(€)</label></p>
+            <label class="w3-label w3-validate">Price(&euro;)</label></p>
             
             <td><input type="file" name = "photo" size="50"></input></td><br><br>
             
