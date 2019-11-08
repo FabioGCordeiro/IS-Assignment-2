@@ -18,11 +18,12 @@ session.setAttribute("email",null);
 
     body, html {height: 100%}
     .bgimg {
-        background-image: url('myBayFinal.jpg');
+        background-color: rgb(77, 1, 77);
+        background-image: url('myBayFinal2.jpg');
         background-repeat: no-repeat;
         min-height: 100%;
         background-position: center;
-        background-size: 75%;
+        background-size: 50%;
     }
     </style>
        
@@ -37,7 +38,7 @@ session.setAttribute("email",null);
                     <a href="Login.jsp" class="w3-button w3-block w3-black w3-center">LOGIN</a>
                 </div>
                 <div class="w3-col s6">
-                    <a href="Register.jsp" class="w3-button w3-block w3-black">REGISTO</a>
+                    <a href="Register.jsp" class="w3-button w3-block w3-black">REGISTER</a>
                 </div>
             </div>
             <!--<h1>Welcome to MyBay!</h1><br>
