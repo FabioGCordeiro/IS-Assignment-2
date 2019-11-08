@@ -12,6 +12,7 @@ if(user==null){
 
 
 <html>
+<<<<<<< HEAD
 <title>MyBay - UserMenu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../lib/w3.css">
@@ -61,6 +62,20 @@ if(user==null){
 </style>
         
         
+=======
+    <head>
+        <title>MyBay - User Menu</title>
+    </head>
+    <body>
+        <h1>Main Menu</h1>
+        <a href="EditAccountInformation.jsp"><button> Edit Account Information </button></a><br><br>
+        <a href="DeleteAccount.jsp"><button> Delete Account </button></a><br><br>
+        <a href="AddItem.jsp"><button> Add Item </button></a><br><br>
+        <form action="ShowUserItems">
+            <input type=hidden name=order value=0></input>
+            <button type="submit"> Show Items </button><br><br>
+        </form>
+>>>>>>> master
 
     <body style="background-image: url('myBayFinal2.jpg');">
         <div class="dropdown">

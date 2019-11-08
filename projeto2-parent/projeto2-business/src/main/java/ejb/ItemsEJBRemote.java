@@ -9,7 +9,7 @@ import data.Item;
 @Remote
 public interface ItemsEJBRemote {
     public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail,Integer insertionDate, byte[] photo);
-    public void deleteItem(String itemName, String userEmail);
+    public void deleteItem(int itemId, String userEmail);
     public boolean editItem(String name, String category, String countryOrigin, Float price, int id);
     public List<Item> getItems();
     public List<Item> getItemsByPrice(Float lowestPrice, Float HighestPrice);
@@ -17,5 +17,6 @@ public interface ItemsEJBRemote {
     public List<Item> getItemsByCategory(String category);
     public List<Item> getItemsByName(String name);
     public List<Item> getItemsByCountry(String country);
-	public Item getItem(int id);
+    public Item getItem(Integer id);
+    public List<Item> getNewestItems();
 }
