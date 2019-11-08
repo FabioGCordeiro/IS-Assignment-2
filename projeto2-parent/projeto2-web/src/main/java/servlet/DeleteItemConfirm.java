@@ -42,6 +42,9 @@ public class DeleteItemConfirm extends HttpServlet {
       itemsejbremote.deleteItem(id, email);
       response.sendRedirect("MainMenu.jsp");
     }
+    else{
+      response.sendRedirect("DeleteItem.jsp");
+    }
   }
   else{
     response.sendRedirect("DeleteItem.jsp");
