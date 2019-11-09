@@ -14,6 +14,7 @@ import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
+import javax.mail.SendFailedException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -46,8 +47,8 @@ public void sendAccountActivationLinkToBuyer() {
         // OUR EMAIL SETTINGS
         String host = "smtp.gmail.com";// Gmail
         int port = 465;
-        String serviceUsername = "fabiogcordeiroo@gmail.com";
-        String servicePassword = "m3m3s4r3lif3";// Our Gmail password
+        String serviceUsername = "mybayis1920@gmail.com";
+        String servicePassword = "mybayis2019";// Our Gmail password
 
         Properties props = new Properties();
         props.put("mail.smtp.user", serviceUsername);
@@ -78,8 +79,8 @@ public void sendAccountActivationLinkToBuyer() {
                 emails[i] = new InternetAddress(user.getEmail());
                 i++;
             } catch (AddressException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.severe("Send email failed. No users.");
+                
             }
         }
 
@@ -112,8 +113,8 @@ public void sendAccountActivationLinkToBuyer() {
 
             logger.info("Catalogue sent");
 
-        }catch (AddressException e) {
-            e.printStackTrace(); 
+        }catch (AddressException | SendFailedException e) {
+            logger.severe("Send email failed. No users.");
         }
         catch (MessagingException e) {
             throw new RuntimeException(e);
