@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,6 +18,8 @@ public class EditUserInformation extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @EJB
     UsersEJBRemote ejbremote;
+
+    Logger logger = Logger.getLogger(EditItem.class.getName());
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,6 +51,7 @@ public class EditUserInformation extends HttpServlet {
     }
   }
   else{
+    logger.warning("Item creation failed. Empty fields are not accepted.");
     response.sendRedirect("EditUserInformation.jsp");
   }
  }

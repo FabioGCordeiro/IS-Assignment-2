@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ public class EditItem extends HttpServlet {
  @EJB
  ItemsEJBRemote ejbremote;
 
+ Logger logger = Logger.getLogger(EditItem.class.getName());
  /**
   * @see HttpServlet#HttpServlet()
   */
@@ -53,7 +55,8 @@ public class EditItem extends HttpServlet {
         }
     }
     else{
-    response.sendRedirect("EditItem.jsp");
+        logger.warning("Item creation failed. Empty fields are not accepted.");
+        response.sendRedirect("EditItem.jsp");
     }
 }
 

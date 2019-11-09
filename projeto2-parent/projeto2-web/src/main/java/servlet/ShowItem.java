@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Base64;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class ShowItem extends HttpServlet {
                 session.setAttribute("id", id);
     
                 Item itemToDetail = ejbremote.getItem(id);
-                PrintWriter out = response.getWriter();
                 
                 //CREATE BASE64 IMAGE URL
                 byte[] imgData = itemToDetail.getPhoto();
@@ -60,18 +58,18 @@ public class ShowItem extends HttpServlet {
                 String url = "data:image/jpg;base64," + encodedImage;
     
                 //DISPLAY ITEM INFORMATION + IMAGE + BUTTON IF IT IS A USER'S ITEM
-                out.println(itemToDetail.toString() + "<div><img src=" + url + " width=100 height=100></img></div><br>");
                 for (Item item : userItems){
                     if(item.getId() == id){
-                        out.println("<a href=" + "EditItem.jsp"+"><button> Edit Item</button></a><br><br>");
-                        out.println("<a href=" + "DeleteItem.jsp"+"><button>Delete Item</button></a><br><br>");
+                        request.setAttribute("hasPermission", "true");
                     }
                 }
-    
-                //LOGOUT BUTTON
-                out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
-    
-                out.close();
+
+                request.setAttribute("name", itemToDetail.getName());
+                request.setAttribute("category", itemToDetail.getCategory());
+                request.setAttribute("countryOrigin", itemToDetail.getCountryOrigin());
+                request.setAttribute("price", itemToDetail.getPrice());
+                request.setAttribute("photo",url);
+                request.getRequestDispatcher("ShowItem.jsp").forward(request, response);;
             }
             else{
                 response.sendRedirect("Error.jsp");

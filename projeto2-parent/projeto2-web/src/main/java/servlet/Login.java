@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -35,6 +36,9 @@ public class Login extends HttpServlet {
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   response.setContentType("text/html");
 
+  Logger logger = Logger.getLogger(Register.class.getName());
+
+
   String email = request.getParameter("email");
   String password = request.getParameter("password");
 
@@ -50,6 +54,7 @@ public class Login extends HttpServlet {
     response.sendRedirect("MainMenu.jsp");
   }
   else{
+    logger.warning("Item creation failed. Empty fields are not accepted.");
     response.sendRedirect("Login.jsp");
   }
  }
