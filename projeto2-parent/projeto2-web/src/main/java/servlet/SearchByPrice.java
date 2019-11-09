@@ -93,23 +93,10 @@ public class SearchByPrice extends HttpServlet {
   
       
   
-      //DATA ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:10px;right:178px>Order By Date:");
-      out.println("<form action=SearchByPrice><input type=hidden name=order value=0></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> Older To Recent </button><br></form><form action=SearchByPrice><input type=hidden name=order value=1></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> Recent To Older </button><br><br></form>");
-      out.println("</div>");
-  
-      //PRICE ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:100px;right:100px>Order By Price:");
-      out.println("<form action=SearchByPrice><input type=hidden name=order value=2></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchByPrice><input type=hidden name=order value=3></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
-      out.println("</div>");
-  
-      //NAME ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:190px;right:188px>Order By Price:");
-      out.println("<form action=SearchByPrice><input type=hidden name=order value=4></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> A to Z </button><br></form><form action=SearchByPrice><input type=hidden name=order value=5></input><input type=hidden name=lowestPrice value="+lowestPrice+"></input><input type=hidden name=highestPrice value="+highestPrice+"></input><button type=submit> Z to A  </button><br><br></form>");
-      out.println("</div>");
-  
-      //LOGOUT BUTTON
-      out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
+      out.println("<html><title>MyBay - Search</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href=../lib/w3.css'><link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>");
+      out.println("<body><div class='w3-container'><div class='w3-dropdown-hover w3-row we3-right' style=position:absolute;top:0px;right:90px><button class='w3-button w3-black'>Order by:</button><div class='w3-dropdown-content w3-bar-block w3-border'><form action=ShowUserItems><input type=hidden name=order value=0><button type=submit> Older To Recent </button><br></form><form action=ShowUserItems><input type=hidden name=order value=1></input><button type=submit> Recent To Older </button><br><br></form><form action=ShowUserItems><input type=hidden name=order value=4></input><button type=submit> A to Z </button><br></form><form action=ShowUserItems><input type=hidden name=order value=5><button type=submit> Z to A  </button></form><form action=ShowUserItems><input type=hidden name=order value=2><button type=submit> Cheapest To Most Expensive </button><br></form><form action=ShowUserItems><input type=hidden name=order value=3></input><button type=submit> Most Expensive To Cheapest  </button></form></div></div></div></body></html>");
+        //LOGOUT BUTTON
+      out.println("<div style=position:absolute;bottom:10px;left:45%><a href=InitialMenu.jsp><button class='w3-btn w3-xlarge w3-round-xlarge w3-deep-purple w3-hover-black' style='font-weight:900;'> Logout </button></a><br><br></div>");
     }catch(NullPointerException | NumberFormatException e){
       response.sendRedirect("Error.jsp");
     }

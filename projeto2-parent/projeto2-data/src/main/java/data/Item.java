@@ -104,9 +104,7 @@ public void setId(int id) {
      return this.photo;
  }
 
- /**
-  * @param photo the photo to set
-  */
+
  public void setPhoto(byte[] photo) {
      this.photo = photo;
  }
