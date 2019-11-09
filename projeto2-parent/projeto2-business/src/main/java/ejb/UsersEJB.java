@@ -2,6 +2,7 @@ package ejb;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -139,6 +140,17 @@ public class UsersEJB implements UsersEJBRemote {
             return false;
         }
         
+    }
+
+    public List<User> getUsers(){
+        try{
+            Query q = em.createQuery("from User");
+            List<User> users = q.getResultList();
+            return users;
+        }catch(NoResultException e){
+            logger.severe("No user found");
+            return null;
+        }
     }
 
     public User getUser(String email){
