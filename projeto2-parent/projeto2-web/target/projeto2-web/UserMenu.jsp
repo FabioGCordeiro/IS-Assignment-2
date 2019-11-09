@@ -20,10 +20,9 @@ if(user==null){
         .dropbtn {
           background-color:black;
           color: white;
-          padding: 16px;
           font-size: 16px;
           block-size: 150px;
-          inline-size: 1900px;
+          inline-size: 100px;
           border: none;
           cursor: pointer;
         }
@@ -38,7 +37,7 @@ if(user==null){
           position: absolute;
           background-color: rgb(77, 1, 77);
           text-align: center;
-          min-width: 1900px;
+          min-width: 100px;
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.918);
           z-index: 1;
         }
@@ -63,12 +62,12 @@ if(user==null){
         
 
     <body style="background-image: url('myBayFinal2.jpg');">
-        <div class="dropdown">
-        <button class="dropbtn w3-xxxlarge" style="font-weight:900">User Menu</button>
-        <div class="dropdown-content">
-            <a href="EditAccountInformation.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;"> Edit Account Information </button></a>
-            <a href="DeleteAccount.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Delete Account </button></a>
-            <a href="AddItem.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Add Item </button></a>
+        <div class="dropdown w3-col" style="position:absolute;">
+        <button class="dropbtn w3-xxxlarge" style="font-weight:900;width:100%;height: 15%;">User Menu</button>
+        <div class="dropdown-content w3-col">
+            <a href="EditAccountInformation.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;height: 10%;"> Edit Account Information </button></a>
+            <a href="DeleteAccount.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;height: 10%;"> Delete Account </button></a>
+            <a href="AddItem.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;height: 10%;"> Add Item </button></a>
             <a><form action="ShowUserItems">
                     <input type=hidden name=order value=0></input>
                     <button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;" type="submit"> Show Items </button> 
