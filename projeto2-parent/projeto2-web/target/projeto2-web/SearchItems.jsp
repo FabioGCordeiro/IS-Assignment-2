@@ -19,47 +19,31 @@ if(user==null){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     
-    <body >
+    <body style="background-image: url('myBayFinal2.jpg');">
             <div class="w3-top">
                 <div class="w3-row w3-padding w3-black">
-                    <div class="w3-col s3 w3-dropdown-hover">
-                        <div class="w3-button w3-block w3-black w3-center">Search Items Menu
-                        <div class="w3-dropdown-content w3-bar-block w3-border">
-                                <a><form action="SearchAllItems">
+                    <div class="w3-col w3-block w3-black w3-left w3-bar-item w3-quarter" style="text-align:center;font-size:200%;">Search by:</div>
+                    <div class="w3-col s4 w3-dropdown-hover ">
+                        <div class="w3-button w3-block w3-black" style="font-size:150%;">Menu
+                        <div class="w3-dropdown-content w3-bar-block w3-border w3-black">
+                                <a class="w3-bar-item "><form style="width:100%" action="SearchAllItems">
                                         <input type=hidden name=order value=0></input>
-                                        <button type="submit"> Show All Items </button>
+                                        <button style="width:100%" type="submit"> Show All Items </button>
                                 </form></a>
-                                <a href="SearchByCategory.jsp"><button> Search By Category </button></a>
-                                <a><form action="SearchByCountry">
+                                <a href="SearchByCategory.jsp" class="w3-bar-item "><button style="width: 100%"> Search By Category </button><br></br></a>
+                                <a class="w3-bar-item "><form action="SearchByCountry">
                                         <input type=hidden name=order value=0></input>
-                                        <button type="submit"> Search By Country </button>
+                                        <button style="width:100%" type="submit"> Search By Country </button>
                                 </form></a>
-                                <a href="SearchItemsByPrice.jsp"><button> Search By Price </button></a>
-                                <a href="SearchItemsByDate.jsp"><button> Search Items Posted After Date </button></a>
-                              </div></div>
+                                <a href="SearchItemsByPrice.jsp" class="w3-bar-item" ><button style="width:100%"> Search By Price </button><br></br></a>
+                                <a href="SearchItemsByDate.jsp" class="w3-bar-item" ><button style="width:100%"> Search Items Posted After Date </button><br></br></a>
+                        </div>
+                        </div>
                     </div>
                 </div>
-                <!--<h1>Welcome to MyBay!</h1><br>
-                <img src="myBay.jpg" alt="brand" width="250" height="160"><br><br>-->
                 </div>
-            
-            </div>
-            <div class="bgimg w3-display-container">
-            </div>
+                <div style=position:absolute;bottom:10px;left:45%>
+                        <a href=InitialMenu.jsp><button class="w3-btn w3-xlarge w3-round-xlarge w3-deep-purple w3-hover-black" style="font-weight:900;"> Logout </button></a><br><br>
+                </div>
         </body>
 </html>
-
-<body>
-        <h1>Search Items Menu</h1><br>
-        <h3>Choose an option:</h3><br>
-        
-        <br><br>
-
-        
-
-        
-        <div style=position:absolute;top:10px;right:10px>
-            <a href=InitialMenu.jsp><button> Logout </button></a><br><br>
-        </div>
-
-    </body>
