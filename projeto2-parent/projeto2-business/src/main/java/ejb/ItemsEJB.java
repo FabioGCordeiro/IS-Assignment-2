@@ -22,7 +22,7 @@ public class ItemsEJB implements ItemsEJBRemote {
 
  Logger logger = Logger.getLogger(ItemsEJB.class.getName());
 
-    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail,Integer insertionDate, byte[] photo) {
+    public boolean createItem(String name, String category, String countryOrigin, Float price, String userEmail,Integer insertionDate, String photo) {
         if (!name.equals("") && !category.equals("") && !countryOrigin.equals("") && price!=null) {
             Item newItem = new Item(name, category, countryOrigin, price, insertionDate);
             logger.info("Trying to create a new item: "+newItem.toString());

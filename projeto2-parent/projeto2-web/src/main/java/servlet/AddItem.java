@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -77,8 +78,12 @@ public class AddItem extends HttpServlet {
       //GET SESSION
       HttpSession session=request.getSession();
 
+      //CREATE BASE64 IMAGE URL
+      String encodedImage = Base64.getEncoder().encodeToString(photoBytes);
+      String url = "data:image/jpg;base64," + encodedImage;
 
-      if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate, photoBytes)){
+
+      if(ejbremote.createItem(name, category,countryOrigin, price, session.getAttribute("email").toString(),insertionDate, url)){
         response.sendRedirect("MainMenu.jsp");
       }
     }

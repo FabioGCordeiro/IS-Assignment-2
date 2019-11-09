@@ -15,7 +15,7 @@ public class Item implements Serializable {
  Integer id;
 
 
- byte[] photo;
+String photo;
 
  
  @Column(nullable = false)
@@ -100,12 +100,12 @@ public void setId(int id) {
      return this.insertionDate;
  }
 
- public byte[] getPhoto() {
+ public String getPhoto() {
      return this.photo;
  }
 
 
- public void setPhoto(byte[] photo) {
+ public void setPhoto(String photo) {
      this.photo = photo;
  }
 

@@ -20,8 +20,12 @@ if(user==null){
     <link rel='stylesheet' href=../lib/w3.css>
     <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
 <body>
-    <c:forEach items="${items}" var="post">
-        <button>${post.name}</button>
+    <c:forEach items="${items}" var="item">
+        <form action=ShowItem>
+                <input type=hidden name=order value=0>
+                <button type=submit>${item.name}</button>
+        </form>
+
     </c:forEach>
 
     <form action=SearchItemsName>

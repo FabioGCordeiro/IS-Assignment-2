@@ -53,9 +53,7 @@ public class ShowItem extends HttpServlet {
                 Item itemToDetail = ejbremote.getItem(id);
                 
                 //CREATE BASE64 IMAGE URL
-                byte[] imgData = itemToDetail.getPhoto();
-                String encodedImage = Base64.getEncoder().encodeToString(imgData);
-                String url = "data:image/jpg;base64," + encodedImage;
+                String url = itemToDetail.getPhoto();
     
                 //DISPLAY ITEM INFORMATION + IMAGE + BUTTON IF IT IS A USER'S ITEM
                 for (Item item : userItems){
