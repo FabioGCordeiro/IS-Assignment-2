@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="ISO-8859-1" session="false"%>
 
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -15,7 +15,7 @@ if(user==null){
 
 <html>
 <title>MyBay - UserMenu</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../lib/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>

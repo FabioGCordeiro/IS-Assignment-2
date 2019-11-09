@@ -7,11 +7,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-/*
- * PBKDF2 salted password hashing.
- * Author: havoc AT defuse.ca
- * www: http://crackstation.net/hashing-security.htm
- */
+
 public class Hash
 {
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
@@ -25,24 +21,14 @@ public class Hash
     public static final int SALT_INDEX = 1;
     public static final int PBKDF2_INDEX = 2;
 
-    /**
-     * Returns a salted PBKDF2 hash of the password.
-     *
-     * @param   password    the password to hash
-     * @return              a salted PBKDF2 hash of the password
-     */
+    //Returns a salted PBKDF2 hash of the password
     public static String createHash(String password)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         return createHash(password.toCharArray());
     }
 
-    /**
-     * Returns a salted PBKDF2 hash of the password.
-     *
-     * @param   password    the password to hash
-     * @return              a salted PBKDF2 hash of the password
-     */
+    //Returns a salted PBKDF2 hash of the password.
     public static String createHash(char[] password)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
@@ -57,26 +43,14 @@ public class Hash
         return PBKDF2_ITERATIONS + ":" + toHex(salt) + ":" +  toHex(hash);
     }
 
-    /**
-     * Validates a password using a hash.
-     *
-     * @param   password    the password to check
-     * @param   goodHash    the hash of the valid password
-     * @return              true if the password is correct, false if not
-     */
+    //Validates a password using a hash
     public static boolean validatePassword(String password, String goodHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         return validatePassword(password.toCharArray(), goodHash);
     }
 
-    /**
-     * Validates a password using a hash.
-     *
-     * @param   password    the password to check
-     * @param   goodHash    the hash of the valid password
-     * @return              true if the password is correct, false if not
-     */
+    //Validates a password using a hash.
     public static boolean validatePassword(char[] password, String goodHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
@@ -93,16 +67,11 @@ public class Hash
         return slowEquals(hash, testHash);
     }
 
-    /**
-     * Compares two byte arrays in length-constant time. This comparison method
-     * is used so that password hashes cannot be extracted from an on-line 
-     * system using a timing attack and then attacked off-line.
-     * 
-     * @param   a       the first byte array
-     * @param   b       the second byte array 
-     * @return          true if both byte arrays are the same, false if not
-     */
-    private static boolean slowEquals(byte[] a, byte[] b)
+    /*Compares two byte arrays in length-constant time. This comparison method
+      is used so that password hashes cannot be extracted from an on-line 
+      system using a timing attack and then attacked off-line.
+    */
+     private static boolean slowEquals(byte[] a, byte[] b)
     {
         int diff = a.length ^ b.length;
         for(int i = 0; i < a.length && i < b.length; i++)
@@ -110,15 +79,7 @@ public class Hash
         return diff == 0;
     }
 
-    /**
-     *  Computes the PBKDF2 hash of a password.
-     *
-     * @param   password    the password to hash.
-     * @param   salt        the salt
-     * @param   iterations  the iteration count (slowness factor)
-     * @param   bytes       the length of the hash to compute in bytes
-     * @return              the PBDKF2 hash of the password
-     */
+    //Computes the PBKDF2 hash of a password
     private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
@@ -127,12 +88,7 @@ public class Hash
         return skf.generateSecret(spec).getEncoded();
     }
 
-    /**
-     * Converts a string of hexadecimal characters into a byte array.
-     *
-     * @param   hex         the hex string
-     * @return              the hex string decoded into a byte array
-     */
+    //Converts a string of hexadecimal characters into a byte array
     private static byte[] fromHex(String hex)
     {
         byte[] binary = new byte[hex.length() / 2];
@@ -143,12 +99,7 @@ public class Hash
         return binary;
     }
 
-    /**
-     * Converts a byte array into a hexadecimal string.
-     *
-     * @param   array       the byte array to convert
-     * @return              a length*2 character string encoding the byte array
-     */
+    //Converts a byte array into a hexadecimal string
     private static String toHex(byte[] array)
     {
         BigInteger bi = new BigInteger(1, array);
