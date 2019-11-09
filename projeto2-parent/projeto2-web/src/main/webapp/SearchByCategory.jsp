@@ -28,8 +28,8 @@ if(user==null){
             <input class="w3-input" type="text" name="category" style="width:90%">
             <label class="w3-label w3-validate">Category</label>
             <input type="hidden" name="order" value=0></input>
-            <input class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Search">
         </p>
+        <input class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Search">
         
         </form>
 

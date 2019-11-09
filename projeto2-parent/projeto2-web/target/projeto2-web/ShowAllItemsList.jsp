@@ -37,7 +37,7 @@ if(user==null){
     </form>    
     <div class='w3-container'>
         <div class='w3-dropdown-hover w3-row we3-right' style=position:absolute;top:0px;right:200px>
-            <button class='w3-button w3-black'>Order by:</button>
+            <button class='w3-button w3-black'>Sort by:</button>
             <div class='w3-dropdown-content w3-bar-block w3-border-0'>
                 <form action=SearchAllItems>
                     Date:<br>
