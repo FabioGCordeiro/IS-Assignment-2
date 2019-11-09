@@ -1,6 +1,7 @@
 package ejb;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -159,7 +160,7 @@ public class ItemsEJB implements ItemsEJBRemote {
     }
 
     public List<Item> getNewestItems(){
-        Query q = em.createQuery("from Item");
+        /*Query q = em.createQuery("from Item");
         List <Item> items = q.getResultList();
 
         List<Item> newestItems = new ArrayList<Item>();
@@ -173,7 +174,13 @@ public class ItemsEJB implements ItemsEJBRemote {
             for(int i=0; i<items.size(); i++){
                 newestItems.add(i, items.get(i));
             }
-        }
+        }*/
+
+        Query q = em.createQuery("FROM Item ORDER BY id DESC").setMaxResults(3);
+        List<Item> newestItems = q.getResultList();
+
+        newestItems.sort(Comparator.comparing(Item::getId));
+        
         logger.info("Getting newest items for catalogue");
         return newestItems;
     }

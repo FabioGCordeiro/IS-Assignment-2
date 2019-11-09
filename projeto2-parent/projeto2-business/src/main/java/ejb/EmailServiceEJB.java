@@ -34,7 +34,7 @@ public PasswordAuthentication getPasswordAuth(String serviceUsername, String ser
     return new PasswordAuthentication(serviceUsername, servicePassword);
 }
 
-@Schedule(second = "30", minute="*", hour="*", info="Envia Email",persistent = false)
+/*@Schedule(second = "30", minute="*", hour="*", info="Envia Email",persistent = false)
 public void sendAccountActivationLinkToBuyer() {
         // OUR EMAIL SETTINGS
         String host = "smtp.gmail.com";// Gmail
@@ -67,7 +67,6 @@ public void sendAccountActivationLinkToBuyer() {
 
         List<Item> newestItems = ejbremote.getNewestItems();
 
-
         String finalMessage = "<h2>Are you interested in buying anything? Here are our newest items!</h2><br>";
 
         for (Item item : newestItems) {
@@ -98,5 +97,5 @@ public void sendAccountActivationLinkToBuyer() {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 }
