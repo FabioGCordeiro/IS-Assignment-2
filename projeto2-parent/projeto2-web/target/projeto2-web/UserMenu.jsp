@@ -63,19 +63,11 @@ if(user==null){
 
     <body style="background-image: url('myBayFinal2.jpg');">
         <div class="dropdown w3-col" style="position:absolute;">
-<<<<<<< HEAD
-        <button class="dropbtn w3-xxxlarge" style="font-weight:900;width:100%;">User Menu</button>
-        <div class="dropdown-content w3-col">
-            <a href="EditAccountInformation.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;"> Edit Account Information </button></a>
-            <a href="DeleteAccount.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Delete Account </button></a>
-            <a href="AddItem.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Add Item </button></a>
-=======
         <button class="dropbtn w3-xxxlarge" style="font-weight:900;width:100%;height: 15%;">User Menu</button>
         <div class="dropdown-content w3-col">
             <a href="EditAccountInformation.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;height: 10%;"> Edit Account Information </button></a>
             <a href="DeleteAccount.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;height: 10%;"> Delete Account </button></a>
             <a href="AddItem.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;height: 10%;"> Add Item </button></a>
->>>>>>> master
             <a><form action="ShowUserItems">
                     <input type=hidden name=order value=0></input>
                     <button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;" type="submit"> Show Items </button> 
