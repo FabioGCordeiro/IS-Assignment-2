@@ -20,47 +20,44 @@ if(user==null){
     <link rel='stylesheet' href=../lib/w3.css>
     <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
 <body>
+    Items: <br>
     <c:forEach items="${items}" var="item">
         <form action=ShowItem>
-                <input type=hidden name=order value=0>
-                <button type=submit>${item.name}</button>
+                <input type=hidden name=id value=${item.id}>
+                <button class="w3-btn w3-section w3-deep-purple w3-ripple w3-border" type=submit>${item.name}</button>
         </form>
-
     </c:forEach>
 
-    <form action=SearchItemsName>
-        Name:
-        <input type=hidden name=order value=0>
-        <input type=text name=name></input>
-        <button class='w3-btn w3-xlarge w3-round-xlarge w3-deep-purple w3-hover-black' type=submit value=Search>Search</button>
-    </form>
     <div class='w3-container'>
-        <div class='w3-dropdown-hover w3-row we3-right' style=position:absolute;top:0px;right:90px>
+        <div class='w3-dropdown-hover w3-row we3-right' style=position:absolute;top:0px;right:200px>
             <button class='w3-button w3-black'>Order by:</button>
-            <div class='w3-dropdown-content w3-bar-block w3-border'>
-                <form action=SearchAllItems>
+            <div class='w3-dropdown-content w3-bar-block w3-border-0'>
+                <form action=SearchByCountry>
+                    Date:<br>
                     <input type=hidden name=order value=0>
-                    <button type=submit> Older To Recent </button><br>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple w3-border" type=submit> Older To Recent </button>
                 </form>
-                <form action=SearchAllItems>
+                <form action=SearchByCountry>
                     <input type=hidden name=order value=1></input>
-                    <button type=submit> Recent To Older </button><br><br>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple" type=submit> Recent To Older </button>
                 </form>
-                <form action=SearchAllItems>
+                <form action=SearchByCountry>
+                    Name: <br>
                     <input type=hidden name=order value=4></input>
-                    <button type=submit> A to Z </button><br>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple" type=submit> A to Z </button>
                 </form>
-                <form action=SearchAllItems>
+                <form action=SearchByCountry>
                     <input type=hidden name=order value=5>
-                    <button type=submit> Z to A  </button>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple" type=submit> Z to A  </button>
                 </form>
-                <form action=SearchAllItems>
+                <form action=SearchByCountry>
+                    Price: <br>
                     <input type=hidden name=order value=2>
-                    <button type=submit> Cheapest To Most Expensive </button><br>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple" type=submit> Cheapest To Most Expensive </button>
                 </form>
-                <form action=SearchAllItems>
+                <form action=SearchByCountry>
                     <input type=hidden name=order value=3></input>
-                    <button type=submit> Most Expensive To Cheapest  </button>
+                    <button class="w3-btn w3-section w3-deep-purple w3-ripple" type=submit> Most Expensive To Cheapest  </button>
                 </form>
                 </div>
             </div>

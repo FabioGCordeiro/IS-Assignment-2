@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -49,6 +48,8 @@ public class ShowItem extends HttpServlet {
             if(!request.getParameter("id").equals("")){
                 int id = Integer.parseInt(request.getParameter("id"));
                 session.setAttribute("id", id);
+
+                
     
                 Item itemToDetail = ejbremote.getItem(id);
                 
@@ -70,10 +71,10 @@ public class ShowItem extends HttpServlet {
                 request.getRequestDispatcher("ShowItem.jsp").forward(request, response);;
             }
             else{
-                response.sendRedirect("Error.jsp");
+                //response.sendRedirect("Error.jsp");
             }
         }catch(NullPointerException | NumberFormatException e){
-            response.sendRedirect("Error.jsp");
+            //response.sendRedirect("Error.jsp");
         }
 
  }

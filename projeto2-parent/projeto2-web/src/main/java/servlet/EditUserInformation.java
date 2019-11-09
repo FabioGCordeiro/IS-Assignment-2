@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data.User;
 import ejb.UsersEJBRemote;
 
 @WebServlet("/EditUserInformation")
@@ -51,8 +52,17 @@ public class EditUserInformation extends HttpServlet {
     }
   }
   else{
-    logger.warning("Item creation failed. Empty fields are not accepted.");
-    response.sendRedirect("EditUserInformation.jsp");
+      HttpSession session = request.getSession();
+      String emailSession = session.getAttribute("email").toString();
+
+      User user = ejbremote.getUser(emailSession);
+
+      request.setAttribute("username", user.getUsername());
+      request.setAttribute("email", user.getEmail());
+      request.setAttribute("country", user.getCountry());
+
+      logger.warning("Edit user failed. Empty fields are not accepted.");
+      request.getRequestDispatcher("EditUserInformation.jsp").forward(request, response);
   }
  }
 

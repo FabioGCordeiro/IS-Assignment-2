@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -37,7 +36,6 @@ public class SearchItemsName extends HttpServlet {
   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
   */
  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
     response.setContentType("text/html");
 
     try{
@@ -47,69 +45,40 @@ public class SearchItemsName extends HttpServlet {
       String name = request.getParameter("name");
   
       List<Item> items = ejbremote.getItemsByName(name);
-  
-      if(items==null){
-        out.print("<h1>There are no items in the database.</h1> ");
-        out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");
+
+      if((Integer.parseInt(request.getParameter("order")) == 0)){
+        //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
+        logger.info("Sorting from most recent to most old");
       }
-      else{
-        if((Integer.parseInt(request.getParameter("order")) == 0)){
-          //ordena mais antigo -> recente (primeiro por data, depois por id caso sejam iguais)
-          items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId));
-          logger.info("Sorting from most recent to most old");
-        }
-        else if((Integer.parseInt(request.getParameter("order")) == 1)){
-            //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
-            items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId).reversed());
-            logger.info("Sorting from most old to most most");
-        }
-        else if((Integer.parseInt(request.getParameter("order")) == 2)){
-          //ordena mais barato -> caro (primeiro por data, depois por id caso sejam iguais)
-          items.sort(Comparator.comparing(Item::getPrice).thenComparing(Item::getId));
-          logger.info("Sorting from cheapest to most expensive");
-        }
-        else if((Integer.parseInt(request.getParameter("order")) == 3)){
-          //ordena mais caro -> barato (primeiro por data, depois por id caso sejam iguais)
-          items.sort(Comparator.comparing(Item::getPrice).reversed().thenComparing(Item::getId));
-          logger.info("Sorting from most expensive to cheapest");
-        }
-        else if((Integer.parseInt(request.getParameter("order")) == 4)){
-          //ordena mais A -> Z (primeiro por data, depois por id caso sejam iguais)
-          items.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).thenComparing(Item::getId));
-          logger.info("Sorting from A to Z");
-        }
-        else if((Integer.parseInt(request.getParameter("order")) == 5)){
-          //ordena mais Z -> A (primeiro por data, depois por id caso sejam iguais)
-          items.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).reversed().thenComparing(Item::getId));
-          logger.info("Sorting from Z to A");
-        }
+      else if((Integer.parseInt(request.getParameter("order")) == 1)){
+          //ordena mais recente -> antigo (primeiro por data, depois por id caso sejam iguais)
+          items.sort(Comparator.comparing(Item::getInsertionDate).thenComparing(Item::getId).reversed());
+          logger.info("Sorting from most old to most most");
       }
-        
-      for (Item item : items) {
-          out.println("<form action=ShowItem><input type=hidden name=id value="+item.getId()+"></input><button type=submit> " + item.getName() + "</button></form>");
+      else if((Integer.parseInt(request.getParameter("order")) == 2)){
+        //ordena mais barato -> caro (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getPrice).thenComparing(Item::getId));
+        logger.info("Sorting from cheapest to most expensive");
       }
-  
-      //SEARCH BAR TO SEARCH PARTIALLY (OR NOT) BY NAME
-      out.println("<form action=SearchItemsName>Name:<input type=hidden name=order value=0></input><input type=text name=name></input><button type=submit value=Search>Search</button></form><br><br>");
-  
-  
-      //DATA ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:10px;right:178px>Order By Date:");
-      out.println("<form action=SearchItemsName><input type=hidden name=order value=0></input><input type=hidden name=name value=" + name +"></input><button type=submit> Older To Recent </button><br></form><form action=SearchItemsName><input type=hidden name=order value=1></input><input type=hidden name=name value=" + name +"></input><button type=submit> Recent To Older </button><br><br></form>");
-      out.println("</div>");
-  
-      //PRICE ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:100px;right:100px>Order By Price:");
-      out.println("<form action=SearchItemsName><input type=hidden name=order value=2></input><input type=hidden name=name value=" + name +"></input><button type=submit> Cheapest To Most Expensive </button><br></form><form action=SearchItemsName><input type=hidden name=order value=3></input><input type=hidden name=name value=" + name +"></input><button type=submit> Most Expensive To Cheapest  </button><br><br></form>");
-      out.println("</div>");
-  
-      //NAME ORDERING BUTTONS
-      out.println("<div style=position:absolute;top:190px;right:188px>Order By Name:");
-      out.println("<form action=SearchItemsName><input type=hidden name=order value=4></input><input type=hidden name=name value=" + name +"></input><button type=submit> A to Z </button><br></form><form action=SearchItemsName><input type=hidden name=order value=5></input><input type=hidden name=name value=" + name +"></input><button type=submit> Z to A  </button><br><br></form>");
-      out.println("</div>");
-  
-      //LOGOUT BUTTON
-      out.println("<div style=position:absolute;top:10px;right:10px><a href=InitialMenu.jsp><button> Logout </button></a><br><br></div>");  
+      else if((Integer.parseInt(request.getParameter("order")) == 3)){
+        //ordena mais caro -> barato (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getPrice).reversed().thenComparing(Item::getId));
+        logger.info("Sorting from most expensive to cheapest");
+      }
+      else if((Integer.parseInt(request.getParameter("order")) == 4)){
+        //ordena mais A -> Z (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).thenComparing(Item::getId));
+        logger.info("Sorting from A to Z");
+      }
+      else if((Integer.parseInt(request.getParameter("order")) == 5)){
+        //ordena mais Z -> A (primeiro por data, depois por id caso sejam iguais)
+        items.sort(Comparator.comparing(Item::getName,String.CASE_INSENSITIVE_ORDER).reversed().thenComparing(Item::getId));
+        logger.info("Sorting from Z to A");
+      }
+
+      request.setAttribute("items", items);
+      request.getRequestDispatcher("ShowItemsList.jsp").forward(request, response);  
     }catch(NullPointerException | NumberFormatException e){
       response.sendRedirect("Error.jsp");
     }

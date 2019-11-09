@@ -15,6 +15,9 @@ if(user==null){
 
 <html>
 <title>MyBay - UserMenu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../lib/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 
     <p>Name:  ${name} </p>
@@ -26,11 +29,9 @@ if(user==null){
         <img src = "${photo}" width="100px" height="100px"></img>
     </div>
 
-    <p>asdasd: ${hasPermission}</p>
-
     <c:if test = "${hasPermission eq true}">
-            <a href="EditItem.jsp"><button> Edit Item</button></a><br><br>
-            <a href="DeleteItem.jsp"><button>Delete Item</button></a><br><br>
+            <a href="EditItem.jsp"><button class="w3-btn w3-section w3-deep-purple w3-ripple"> Edit Item</button></a><br><br>
+            <a href="DeleteItem.jsp"><button class="w3-btn w3-section w3-deep-purple w3-ripple">Delete Item</button></a><br><br>
     </c:if>
 
 

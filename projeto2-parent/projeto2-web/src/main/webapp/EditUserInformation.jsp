@@ -2,7 +2,7 @@
 pageEncoding="ISO-8859-1" session="false"%>
 
 <%
-/HttpSession session = request.getSession(false);
+HttpSession session = request.getSession(false);
 String user = (String) session.getAttribute("email");
 
 if(user==null){
@@ -27,16 +27,16 @@ if(user==null){
 
         <p>
             <input class="w3-input" type="text" name="email" style="width:90%">
-            <label class="w3-label w3-validate">Email</label></p>
+            <label class="w3-label w3-validate">Email (current: ${email})</label></p>
         <p>
             <input class="w3-input" type="password" name="password" style="width:90%">
-            <label class="w3-label w3-validate">Password</label></p>
+            <label class="w3-label w3-validate">Password </label></p>
         <p>
             <input class="w3-input" type="text" name="username" style="width:90%">
-            <label class="w3-label w3-validate">Username</label></p>
+            <label class="w3-label w3-validate">Username (current: ${username})</label></p>
         <p>
             <input class="w3-input" type="text" name="country" style="width:90%">
-            <label class="w3-label w3-validate">Country</label></p>
+            <label class="w3-label w3-validate">Country (current: ${country})</label></p>
 
         <p>
         <button class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Edit"> Edit </button>

@@ -82,8 +82,7 @@ public class SearchAllItems extends HttpServlet {
         }
 
         request.setAttribute("items", items);
-        
-        request.getRequestDispatcher("ShowAllItems.jsp").forward(request, response);    
+        request.getRequestDispatcher("ShowAllItemsList.jsp").forward(request, response);    
     }
   }catch(NullPointerException | NumberFormatException e){
       response.sendRedirect("Error.jsp");

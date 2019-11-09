@@ -32,8 +32,8 @@ if(user==null){
             <input class="w3-input" type="password" name="password" style="width:90%">
             <label class="w3-label w3-validate">Password</label>
             <input type="hidden" name="id" value=${id}></input>
-            <input class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Confirm">
         </p>
+        <input class="w3-btn w3-section w3-deep-purple w3-ripple" type="submit" value="Confirm">
         
         <p class="w3-right"><a href="InitialMenu.jsp">Logout!</a></p></p>
     </form>

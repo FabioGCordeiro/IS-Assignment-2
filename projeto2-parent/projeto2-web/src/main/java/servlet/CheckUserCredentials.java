@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.User;
 import ejb.UsersEJBRemote;
 
 @WebServlet("/CheckUserCredentials")
@@ -34,7 +35,14 @@ public class CheckUserCredentials extends HttpServlet {
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     if(ejbremote.checkUserLogin(email, password)){
-      response.sendRedirect("EditUserInformation.jsp");
+
+      User user = ejbremote.getUser(email);
+
+      request.setAttribute("username", user.getUsername());
+      request.setAttribute("email", user.getEmail());
+      request.setAttribute("country", user.getCountry());
+
+      request.getRequestDispatcher("EditUserInformation.jsp").forward(request, response);
     }
     else{
       response.sendRedirect("EditAccountInformation.jsp");
