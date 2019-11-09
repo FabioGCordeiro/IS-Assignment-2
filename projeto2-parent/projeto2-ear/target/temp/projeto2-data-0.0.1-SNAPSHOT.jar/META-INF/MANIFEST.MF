@@ -1,4 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< Updated upstream
+=======
+Built-By: fabi0gc
+Class-Path: commons-io-2.5.jar
+>>>>>>> Stashed changes
 Created-By: Apache Maven 3.6.0
 Built-By: duarte
 Build-Jdk: 11.0.4
