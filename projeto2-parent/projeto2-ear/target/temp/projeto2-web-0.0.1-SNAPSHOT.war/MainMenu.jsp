@@ -44,7 +44,6 @@ if(user==null){
         .dropdown-content a {
           color: black;
           padding: 50px 16px;
-          min-height: 100px;
           text-decoration: none;
           display: block;
         }
@@ -60,9 +59,15 @@ if(user==null){
 
     <body style="background-image: url('myBayFinal2.jpg');">
         <div class="dropdown w3-col" style="position:absolute;">
+<<<<<<< HEAD
         <button class="dropbtn w3-xxxlarge" style="font-weight:900;width:100%">Main Menu</button>
         <div class="dropdown-content w3-col">
             <a href="UserMenu.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black " style="font-weight:900;"> User Menu </button></a>
+=======
+        <button class="dropbtn w3-xxxlarge" style="font-weight:900;width:100%;height: 15%;">Main Menu</button>
+        <div class="dropdown-content w3-col" style="position: absolute;">
+            <a style="height: 5%" href="UserMenu.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> User Menu </button></a>
+>>>>>>> master
             <a href="SearchItems.jsp"><button class="w3-btn w3-xlarge w3-round-xlarge w3-white w3-hover-black" style="font-weight:900;"> Shopping Menu </button></a>
         </div>
         </div>
